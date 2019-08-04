@@ -4,6 +4,8 @@ This project is an  [Angular CLI](https://github.com/angular/angular-cli) micro 
 personal website. I use this app to test out new technologies from little things like Canvas and CSS shenanigans 
 to beefier application processes such as service workers. 
 
+Visit the live site [here](https://github.com/jmarlett93.io/marlett-software-93)
+
 ## Build
 
 Run 
