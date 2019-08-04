@@ -7,9 +7,5 @@ import {Component, ViewChild} from '@angular/core';
 })
 export class AppComponent {
   title = 'marlett-app';
-  @ViewChild('aboutSection', {static: false}) aboutSection;
 
-  handlePageDownClick() {
-    this.aboutSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
-  }
 }
