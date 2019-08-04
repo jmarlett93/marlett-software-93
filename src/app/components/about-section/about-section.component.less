@@ -1,0 +1,50 @@
+@import '../../assets/variables.less';
+
+section {
+  padding-top: 5em;
+}
+
+strong {
+  display: inline-flex;
+}
+
+.d-flex {
+  height: auto;
+}
+
+.card {
+  width: 20em;
+  background-color: @transparent-grey;
+  margin-bottom: 10em;
+}
+
+.card-title {
+  color: @deep-blue;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+
+  .btn{
+    cursor: pointer;
+  }
+}
+
+.link-image-container {
+  width: 100%;
+  position: relative;
+
+  .link-overlay-wheel {
+    width: 80%;
+    height: 80%;
+    border-radius: 80%;
+    border: 2px @primary-blue solid;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+
+    app-wheel-item {
+      position: absolute;
+    }
+  }
+}
+
