@@ -22,12 +22,11 @@ export class AboutSectionComponent implements OnInit {
   }
 
   positionTop(radius, index, arrayLength) {
-   return String((radius + -radius * Math.cos((360 / arrayLength/ 180) * index * Math.PI)) - 20 ) + 'px';
+   return String((radius + -radius * Math.cos((360 / arrayLength / 180) * index * Math.PI)) - 20 ) + 'px';
   }
 
   positionLeft(radius, index, arrayLength){
-    console.log(radius);
-    // NOTE: the the -15 is an offset, based on the radius of the child element with the font awesome links
+    // NOTE: the the -20 is an offset, based on the radius of the child element with the font awesome links
     return String( (radius + radius * Math.sin((360 / arrayLength / 180) * index * Math.PI)) - 20) + 'px';
   }
 
