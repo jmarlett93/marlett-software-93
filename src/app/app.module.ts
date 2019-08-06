@@ -14,6 +14,7 @@ import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './components/home/home.component';
+import { SimulationsModule } from './simulations/simulations.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
+    SimulationsModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {

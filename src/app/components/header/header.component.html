@@ -2,11 +2,24 @@
   <a class="navbar-brand jm-title">
     John Marlett: Software Engineer
   </a>
-<!--  <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-      <a class="jm-button">
-        Home
-      </a>
-    </li>
-  </ul>-->
+  <button class="navbar-toggler"
+          type="button" data-toggle="collapse"
+          data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <fa class="navbar-toggler-icon" name="bars"></fa>
+  </button>
+  <div id="navbarNav" class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="ml-auto nav-item">
+        <a routerLink="/home" class="jm-button">
+          Home
+        </a>
+      </li>
+      <li class="ml-auto nav-item">
+        <a routerLink="/simulations" class="jm-button">
+          Simulations
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>

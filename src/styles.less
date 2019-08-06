@@ -37,23 +37,36 @@ body {
 @fonts:'Roboto', 'Ostrich Sans', 'Oswald Sans', 'Helvetica';
 
 .jm-button {
-  width: 5em;
-  background-color: @primary-blue;
+  //width: 5em;
+  background-color: transparent;
   border-color: @primary-blue !important;
   color: @peach-white !important;
   border: solid;
   border-width: 0.085em;
   border-radius: 5em;
-  padding-top: 0.3em;
-  padding-bottom: 0.3em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   padding-left: 0.55em;
   padding-right: 0.55em;
   margin: 0.5em;
   font-size: 1em;
+  line-height:1em;
   text-decoration: none;
   text-align: center;
   -webkit-transition: all 500ms ease-out;
   -moz-transition: all 500ms ease-out;
   -o-transition: all 500ms ease-out;
   transition: all 500ms ease-out;
-cursor: pointer;}
+  cursor: pointer;
+  &:hover{
+    border-color: @peach-white !important;
+  }
+}
+
+
+button{
+
+  &:focus{
+    outline: none;
+  }
+}
