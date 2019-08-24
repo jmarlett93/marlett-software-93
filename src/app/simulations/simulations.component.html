@@ -1,1 +1,48 @@
-<p>simulations works!</p>
+<section class="container-fluid">
+  <div class="d-flex flex-column justify-content-around flex-md-row">
+    <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
+      <div class="card-body">
+        <div class="card-title">
+          <strong>Prime Number Generator: Putting Web Workers To Work</strong>
+        </div>
+        <div class="card-text">
+          <div class="row">
+            <div class="col d-flex flex-column">
+              <p>In this simulation we will run a costly function to count the number of prime numbers
+                within a large range. Performing this operation on the main thread will slow down the UI,
+                and make it unresponsive. Instead we will use a webworker to take the calculation off the
+                main thread keeping our site nice and responsive. Read more about
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" target="_blank">web workers here</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
+            <img src="assets/images/isPrime.PNG" class="card-img-top" alt="prime number test function">
+      <div class="card-body">
+        <div class="card-title">
+          <strong>A / B Comparison</strong>
+        </div>
+        <div class="card-text">
+          <div class="row">
+            <div class="col d-flex flex-column">
+              <p>Below we run</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col d-flex flex-column">
+              <p>This button runs the calculation</p>
+              <button class="jm-button align-self-center" type="button">Run</button>
+            </div>
+            <div class="col d-flex flex-column">
+              <p></p>
+              <button class="jm-button align-self-center" type="button">Run</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
