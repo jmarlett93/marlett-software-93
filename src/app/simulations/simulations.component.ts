@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { range } from 'lodash';
 
 @Component({
@@ -7,6 +8,9 @@ import { range } from 'lodash';
   styleUrls: ['./simulations.component.less']
 })
 export class SimulationsComponent implements OnInit {
+
+  mainThreadCount = 0;
+  serviceWorkerCount = 0;
 
   constructor() {
   }
@@ -20,15 +24,20 @@ export class SimulationsComponent implements OnInit {
     console.log(Math.floor(end  / 1000));
   }
 
+  clear() {
+    this.mainThreadCount = 0;
+  }
 
   randomNumberGenerate() {
 
     const numberLimit = 10000;
     let count = 0;
-    const array = range(900000);
+    const array = range(500000);
     array.forEach((item, index) => {
       this.isPrime(item) ? count += 1 : null;
     });
+    this.mainThreadCount = count;
+    console.log(this.mainThreadCount);
   }
 
   isPrime(num) {
