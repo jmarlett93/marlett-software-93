@@ -16,5 +16,4 @@ export const reducers: ActionReducerMap<State> = {
 simulationsUiState: fromSimulationsUi.simulationsUiReducer
 };
 
-
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];

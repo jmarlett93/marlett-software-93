@@ -4,6 +4,7 @@ export const SimulationUiActions = {
   SET_REMOTE_PRIME_COUNT: 'SET_REMOTE_PRIME_COUNT'
 };
 
+//TODO reimplement using createAction
 export class SetRemotePrimeCount implements Action {
   readonly type = SimulationUiActions.SET_REMOTE_PRIME_COUNT;
   payload: number;

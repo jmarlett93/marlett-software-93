@@ -1,22 +1,23 @@
-import { WebWorkerPrimeNumberCounterTypes,
-  WebWorkerPrimeNumberCounterActions} from 'src/app/reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.actions';
+import * as  WebWorkerPrimeNumberCounterActions from 'src/app/reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.actions';
+import {createReducer, Action, on} from '@ngrx/store';
 
-
-export interface WebWorkerPrimeNumberCounterState {
+export interface State {
   count: number;
+  isCalculating: boolean;
 }
 
-
-export const initialWebWorkerPrimeNumberCounterState: WebWorkerPrimeNumberCounterState = {
-  count: 0
+export const initialState: State = {
+  count: 0,
+  isCalculating: false
 };
 
-export function webWorkerPrimeNumberCounterReducer(
-  state = initialWebWorkerPrimeNumberCounterState,
-  action: WebWorkerPrimeNumberCounterTypes): WebWorkerPrimeNumberCounterState {
-  switch (action.type) {
-    default: {
-      return state;
-    }
-  }
+const webWorkerPrimeNumberCounterReducer = createReducer(
+  initialState,
+  on(WebWorkerPrimeNumberCounterActions.SetWebWorkerCount, (state, {count}) => ({...state, count })),
+  on(WebWorkerPrimeNumberCounterActions.ToggleIsCalculating,
+    ( state ) => ({ ...state, isCalculating: !state.isCalculating }))
+);
+
+export function reducer(state: State | undefined, action: Action) {
+  return webWorkerPrimeNumberCounterReducer(state, action);
 }

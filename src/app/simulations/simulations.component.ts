@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Store , select} from '@ngrx/store';
+import { ApplicationState} from '../app.state';
+import * as primeCounterActions from '../reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.actions';
+import { selectWebWorkerPrimeNumberCounterState } from '../reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.selectors';
 import { range } from 'lodash';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-simulations',
@@ -10,34 +14,49 @@ import { range } from 'lodash';
 export class SimulationsComponent implements OnInit {
 
   mainThreadCount = 0;
-  serviceWorkerCount = 0;
+  primeNumberCounterState$: Observable<any>;
+  responsiveToggle = false;
+  mainThreadSpinner = false;
 
-  constructor() {
+  constructor(private store$: Store<ApplicationState>) {
   }
 
   ngOnInit() {
-    console.log(range(10));
     const start = Date.now();
     // this.randomNumberGenerate();
     const end = Date.now() - start;
-    console.log(end);
-    console.log(Math.floor(end  / 1000));
+   /* console.log(end);
+    console.log(Math.floor(end  / 1000));*/
+    this.primeNumberCounterState$ = this.store$.pipe(select(selectWebWorkerPrimeNumberCounterState));
   }
 
   clear() {
     this.mainThreadCount = 0;
   }
 
+  clearWebWorkerCount() {
+    this.store$.dispatch(primeCounterActions.SetWebWorkerCount({ count: 0 }));
+  }
+
+  runWebWorkerPrimeCounter(): void {
+    this.store$.dispatch(primeCounterActions.ToggleIsCalculating());
+    this.store$.dispatch(primeCounterActions.CallWebWorkerCalculate({numberLimit: 500000}));
+  }
+
+  toggleResponsive() {
+    this.responsiveToggle = !this.responsiveToggle;
+  }
+
   randomNumberGenerate() {
 
-    const numberLimit = 10000;
+    this.mainThreadSpinner = true;
     let count = 0;
     const array = range(500000);
     array.forEach((item, index) => {
       this.isPrime(item) ? count += 1 : null;
     });
     this.mainThreadCount = count;
-    console.log(this.mainThreadCount);
+    this.mainThreadSpinner = false;
   }
 
   isPrime(num) {

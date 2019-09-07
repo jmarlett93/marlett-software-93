@@ -64,23 +64,49 @@ body {
 }
 
 .jm-input{
-  background-color: transparent;
-  border: solid;
-  border-width: 0.085em;
+  background-color: transparent !important;
+  border: solid !important;
+  border-width: 0.085em !important;
   border-color: @primary-blue !important;
   font-size: 1em;
   font-weight: 500;
-  color: @midnight-blue;
+  color: @midnight-blue !important;
   &:focus{
     border-color: @peach-white !important;
   }
 
 }
 
+.jm-transparent {
+  background-color: transparent !important;
+  color: @midnight-blue !important;
+}
 
-button{
+.jm-prepend {
+    border-color: @primary-blue !important;
+    background-color: @primary-blue !important;
+    color: @peach-white !important;
 
+
+  span {
+    border-color: @primary-blue !important;
+    background-color: @primary-blue !important;
+    color: @peach-white !important;
+  }
+}
+
+
+button, input {
+
+  &.disabled {
+    cursor: not-allowed !important;
+  }
   &:focus{
-    outline: none;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &:active {
+    box-shadow: none !important;
   }
 }
