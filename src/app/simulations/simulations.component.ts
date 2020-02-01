@@ -23,10 +23,7 @@ export class SimulationsComponent implements OnInit {
 
   ngOnInit() {
     const start = Date.now();
-    // this.randomNumberGenerate();
     const end = Date.now() - start;
-   /* console.log(end);
-    console.log(Math.floor(end  / 1000));*/
     this.primeNumberCounterState$ = this.store$.pipe(select(selectWebWorkerPrimeNumberCounterState));
   }
 

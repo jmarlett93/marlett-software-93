@@ -1,4 +1,5 @@
-<section class="container-fluid">
+<section>
+  <div class="container-fluid">
   <div class="d-flex flex-column justify-content-around flex-md-row">
     <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
       <img src="assets/images/isPrime.PNG" class="card-img-top" alt="prime number test function">
@@ -14,9 +15,6 @@
                 UI controls with blocking I/O. We will demonstrate how a webworker can take the calculation
                 burden off the main thread, keeping our user experience smooth. Read more about webworkers on MDN, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" target="_blank">here.</a>
               </p>
-<!--
-              <p>In this example, we abstracted the </p>
--->
             </div>
           </div>
         </div>
@@ -71,7 +69,7 @@
                       type="button">Run Web Worker</button>
               <ng-container *ngIf="primeNumberCounterState$ | async as counterState">
                 <div class="input-group mt-3">
-                  <div class="input-group-prepend jm-prepend">
+                  <div class="input-group-prepen jm-prepend">
                     <span class="input-group-text">Prime #</span>
                   </div>
                   <input [ngModel]="counterState.count" class="jm-input form-control pl-2"/>
@@ -99,4 +97,5 @@
       </div>
     </div>
   </div>
+</div>
 </section>
