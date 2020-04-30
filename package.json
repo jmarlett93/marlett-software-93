@@ -29,7 +29,7 @@
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.3.1",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "observable-webworker": "^3.2.3",
     "rxjs": "~6.4.0",
