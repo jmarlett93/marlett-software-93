@@ -7,7 +7,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class AboutSectionComponent implements OnInit {
 
-  @ViewChild('linkWheel', {static: false})linkWheel: ElementRef;
+  @ViewChild('linkWheel')linkWheel: ElementRef;
   constructor() { }
 
   linkElements = [

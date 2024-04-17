@@ -6,7 +6,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('aboutSection', {static: false}) aboutSection;
+  @ViewChild('aboutSection') aboutSection;
 
   constructor() { }
 
