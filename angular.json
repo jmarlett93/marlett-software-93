@@ -135,8 +135,9 @@
       }
     }
   },
-  "defaultProject": "marlett-software-93",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
   }
 }
