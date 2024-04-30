@@ -74,18 +74,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "marlett-software-93:build"
+            "buildTarget": "marlett-software-93:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "marlett-software-93:build:production"
+              "buildTarget": "marlett-software-93:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "marlett-software-93:build"
+            "buildTarget": "marlett-software-93:build"
           }
         },
         "test": {

@@ -1,23 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { HeroSectionComponent } from './components/hero-section/hero-section.component';
-import { AboutSectionComponent } from './components/about-section/about-section.component';
-import { GutterComponent } from './components/gutter/gutter.component';
-import { WheelItemComponent } from './components/wheel-item/wheel-item.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { reducers, metaReducers } from './reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { HomeComponent } from './components/home/home.component';
-import { SimulationsModule } from './simulations/simulations.module';
-import { WebWorkerPrimeNumberCounterStateModule } from './reducers/state-feature.modules';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { HeroSectionComponent } from "./components/hero-section/hero-section.component";
+import { AboutSectionComponent } from "./components/about-section/about-section.component";
+import { GutterComponent } from "./components/gutter/gutter.component";
+import { WheelItemComponent } from "./components/wheel-item/wheel-item.component";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { reducers, metaReducers } from "./reducers";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
+import { HomeComponent } from "./components/home/home.component";
+import { SimulationsModule } from "./simulations/simulations.module";
+import { WebWorkerPrimeNumberCounterStateModule } from "./reducers/state-feature.modules";
+import { ServiceWorkerModule } from "@angular/service-worker";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -27,26 +27,32 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AboutSectionComponent,
     GutterComponent,
     WheelItemComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFontAwesomeModule,
     SimulationsModule,
     WebWorkerPrimeNumberCounterStateModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production,
+    }),
+    StoreModule.forRoot({}, {}),
+    FontAwesomeModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
