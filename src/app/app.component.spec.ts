@@ -3,20 +3,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { GutterComponent } from './components/gutter/gutter.component';
-import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        AngularFontAwesomeModule
-      ],
-      declarations: [
-        AppComponent,
-        HeaderComponent,
-        GutterComponent
-      ],
+      imports: [RouterTestingModule, AngularFontAwesomeModule],
+      declarations: [AppComponent, HeaderComponent, GutterComponent],
     }).compileComponents();
   }));
 
@@ -25,5 +18,4 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
-
 });

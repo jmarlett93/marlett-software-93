@@ -1,20 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { AboutSectionComponent } from '../about-section/about-section.component';
+import { HeroSectionComponent } from '../hero-section/hero-section.component';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [AboutSectionComponent, HeroSectionComponent],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+  styleUrls: ['./home.component.less'],
 })
-export class HomeComponent implements OnInit {
-  @ViewChild('aboutSection', {static: false}) aboutSection;
+export class HomeComponent {
+  @ViewChild('aboutSection') aboutSection;
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor() {}
 
   handlePageDownClick() {
     this.aboutSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
-
 }

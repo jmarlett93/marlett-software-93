@@ -9,10 +9,9 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ AngularFontAwesomeModule ],
-      declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
+      imports: [AngularFontAwesomeModule],
+      declarations: [HeaderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

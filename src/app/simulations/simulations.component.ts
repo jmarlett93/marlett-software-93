@@ -1,30 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { Store , select} from '@ngrx/store';
-import { ApplicationState} from '../app.state';
+import { Store, select } from '@ngrx/store';
+import { range } from 'lodash';
+import { Observable } from 'rxjs';
+import { ApplicationState } from '../app.state';
 import * as primeCounterActions from '../reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.actions';
 import { selectWebWorkerPrimeNumberCounterState } from '../reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.selectors';
-import { range } from 'lodash';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-simulations',
   templateUrl: './simulations.component.html',
-  styleUrls: ['./simulations.component.less']
+  styleUrls: ['./simulations.component.less'],
 })
 export class SimulationsComponent implements OnInit {
-
   mainThreadCount = 0;
-  primeNumberCounterState$: Observable<any>;
+  primeNumberCounterState$: Observable<{
+    count: number;
+    isCalculating: boolean;
+  }>;
   responsiveToggle = false;
   mainThreadSpinner = false;
 
-  constructor(private store$: Store<ApplicationState>) {
-  }
+  constructor(private store$: Store<ApplicationState>) {}
 
   ngOnInit() {
     const start = Date.now();
     const end = Date.now() - start;
-    this.primeNumberCounterState$ = this.store$.pipe(select(selectWebWorkerPrimeNumberCounterState));
+    this.primeNumberCounterState$ = this.store$.pipe(
+      select(selectWebWorkerPrimeNumberCounterState),
+    );
   }
 
   clear() {
@@ -37,7 +40,9 @@ export class SimulationsComponent implements OnInit {
 
   runWebWorkerPrimeCounter(): void {
     this.store$.dispatch(primeCounterActions.ToggleIsCalculating());
-    this.store$.dispatch(primeCounterActions.CallWebWorkerCalculate({numberLimit: 500000}));
+    this.store$.dispatch(
+      primeCounterActions.CallWebWorkerCalculate({ numberLimit: 500000 }),
+    );
   }
 
   toggleResponsive() {
@@ -45,12 +50,11 @@ export class SimulationsComponent implements OnInit {
   }
 
   randomNumberGenerate() {
-
     this.mainThreadSpinner = true;
     let count = 0;
     const array = range(500000);
     array.forEach((item, index) => {
-      this.isPrime(item) ? count += 1 : null;
+      this.isPrime(item) ? (count += 1) : null;
     });
     this.mainThreadCount = count;
     this.mainThreadSpinner = false;
@@ -67,5 +71,4 @@ export class SimulationsComponent implements OnInit {
     }
     return true;
   }
-
 }

@@ -1,20 +1,17 @@
-import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-hero-section',
+  standalone: true,
   templateUrl: './hero-section.component.html',
-  styleUrls: ['./hero-section.component.less']
+  styleUrls: ['./hero-section.component.less'],
 })
-export class HeroSectionComponent implements OnInit {
+export class HeroSectionComponent {
+  @Output() pageDownClick = new EventEmitter<void>();
 
-  @Output()onPageDownClick = new EventEmitter<any>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor() {}
 
   handlePageDownButtonClicked() {
-    this.onPageDownClick.emit();
+    this.pageDownClick.emit();
   }
 }

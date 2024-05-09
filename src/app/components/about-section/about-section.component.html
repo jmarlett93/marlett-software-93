@@ -1,63 +1,95 @@
 <section class="container-fluid">
   <div class="d-flex flex-column justify-content-around flex-md-row">
     <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
-      <img src="assets/images/f-14-1_1jpg.jpg" class="card-img-top" alt="praxitlean aphrodite">
+      <img
+        src="assets/images/f-14-1_1jpg.jpg"
+        class="card-img-top"
+        alt="praxitlean aphrodite"
+      />
       <div class="card-body">
         <div class="card-title">
           <strong>About Me</strong>
           <div class="btn-group btn-group-sm">
             <div class="btn btn-secondary">
-              <fa name="linkedin">
-                <a href="https://www.linkedin.com/in/johnmarlett93/" target="_blank" ></a>
-              </fa>
+              <a
+                href="https://www.linkedin.com/in/johnmarlett93/"
+                target="_blank"
+              >
+                <fa-icon [icon]="fasLinkedIn"> </fa-icon
+              ></a>
             </div>
           </div>
         </div>
-        <p class="card-text">I am an software engineering consultant interested in creating cutting edge
-          web software solutions. I collaborate with agile teams to write incredible code, implement forward
-          looking, maintainable technologies, and deliver tested, well documented software on time. I am currently
-          working with React, Angular 8+, NodeJS, and C#. Outside of work, I enjoy a dry martini and rugby.
+        <p class="card-text">
+          I am an software engineering consultant interested in creating cutting
+          edge web software solutions. I collaborate with agile teams to write
+          incredible code, implement forward looking, maintainable technologies,
+          and deliver tested, well documented software on time. I am currently
+          working with Vue, Angular 17+, NodeJS, Golang, and AWS. Outside of
+          work, I enjoy a dry martini and rugby.
         </p>
       </div>
     </div>
-    <div class="card p-2 mb-3 mb-md-auto  align-self-center align-self-md-auto">
+    <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
       <img
         src="assets/images/the-venus-de-milo-at-the-louvre-museum-back-after-news-photo-108581598-1562608350.jpg"
-        class="card-img-top" alt="praxitlean aphrodite">
+        class="card-img-top"
+        alt="praxitlean aphrodite"
+      />
       <div class="card-body">
         <div class="card-title">
           <strong>Excellence</strong>
         </div>
-        <p class="card-text">The pursuit of excellence is at the core of my philosophy in software. I enjoy learning
-          something knew on the job every day, setting overarching goals for any given project or codebase, and
-          constantly
-          improving myself, the code, the team, and the process.</p>
+        <p class="card-text">
+          The pursuit of excellence is at the core of my philosophy in software.
+          I enjoy learning something knew on the job every day, setting
+          overarching goals for any given project or codebase, and constantly
+          improving myself, the code, the team, and the process.
+        </p>
       </div>
     </div>
-    <div class="card p-2 mb-3 mb-md-auto  align-self-center align-self-md-auto">
+    <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
       <div class="link-image-container">
-        <img class="card-img-top" src="assets/images/stargaze1_1.jpg"/>
+        <img
+          class="card-img-top"
+          alt="stars"
+          src="assets/images/stargaze1_1.jpg"
+        />
         <div #linkWheel class="link-overlay-wheel">
-          <ng-container *ngFor="let item of linkElements; let i = index">
-            <app-wheel-item [wheel-item]="item"
-                            [style.top]="positionTop((linkWheel.offsetWidth)/2, i, linkElements.length)"
-                            [style.left]="positionLeft((linkWheel.offsetWidth)/2, i, linkElements.length)">
+          @for (item of linkElements; track $index) {
+            <app-wheel-item
+              [wheelItem]="item"
+              [style.top]="
+                positionTop(
+                  linkWheel.offsetWidth / 2,
+                  $index,
+                  linkElements.length
+                )
+              "
+              [style.left]="
+                positionLeft(
+                  linkWheel.offsetWidth / 2,
+                  $index,
+                  linkElements.length
+                )
+              "
+            >
             </app-wheel-item>
-          </ng-container>
-
+          }
         </div>
       </div>
       <div class="card-body">
         <div class="card-title">
           <strong>This Site</strong>
         </div>
-        <p class="card-text">This site is a testing ground meant to push the limits of Javascript in the browser. It is
-          currently an Angular 8/
-          Bootstrap 4 microsite. Future directions include sections for HTML5/JS browser games, simulations or a perhaps
-          a virtual art gallery. In the mean time, check out the link wheel for information and entertainment links.
+        <p class="card-text">
+          This site is a playground for pushing the limits of Javascript in the
+          browser. It is currently an Angular 17 / Bootstrap 4 microsite. Future
+          directions include sections for HTML5/JS browser games, simulations or
+          a perhaps a virtual art gallery.
         </p>
       </div>
     </div>
   </div>
-</section><!-- end of section .link container -->
-
+</section>
+<!-- end of section .link container -->
