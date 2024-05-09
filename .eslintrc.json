@@ -1,6 +1,14 @@
 {
   "root": true,
   "ignorePatterns": ["projects/**/*"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  },
   "overrides": [
     {
       "files": ["*.ts"],
