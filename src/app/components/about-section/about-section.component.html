@@ -11,9 +11,12 @@
           <strong>About Me</strong>
           <div class="btn-group btn-group-sm">
             <div class="btn btn-secondary">
-              <!--   <fa name="linkedin">
-                <a href="https://www.linkedin.com/in/johnmarlett93/" target="_blank" ></a>
-              </fa>  -->
+              <a
+                href="https://www.linkedin.com/in/johnmarlett93/"
+                target="_blank"
+              >
+                <fa-icon [icon]="fasLinkedIn"> </fa-icon
+              ></a>
             </div>
           </div>
         </div>
@@ -47,20 +50,32 @@
     </div>
     <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
       <div class="link-image-container">
-        <img class="card-img-top" src="assets/images/stargaze1_1.jpg" />
+        <img
+          class="card-img-top"
+          alt="stars"
+          src="assets/images/stargaze1_1.jpg"
+        />
         <div #linkWheel class="link-overlay-wheel">
-          <ng-container *ngFor="let item of linkElements; let i = index">
+          @for (item of linkElements; track $index) {
             <app-wheel-item
-              [wheel-item]="item"
+              [wheelItem]="item"
               [style.top]="
-                positionTop(linkWheel.offsetWidth / 2, i, linkElements.length)
+                positionTop(
+                  linkWheel.offsetWidth / 2,
+                  $index,
+                  linkElements.length
+                )
               "
               [style.left]="
-                positionLeft(linkWheel.offsetWidth / 2, i, linkElements.length)
+                positionLeft(
+                  linkWheel.offsetWidth / 2,
+                  $index,
+                  linkElements.length
+                )
               "
             >
             </app-wheel-item>
-          </ng-container>
+          }
         </div>
       </div>
       <div class="card-body">
@@ -68,11 +83,10 @@
           <strong>This Site</strong>
         </div>
         <p class="card-text">
-          This site is a testing ground meant to push the limits of Javascript
-          in the browser. It is currently an Angular 8/ Bootstrap 4 microsite.
-          Future directions include sections for HTML5/JS browser games,
-          simulations or a perhaps a virtual art gallery. In the mean time,
-          check out the link wheel for information and entertainment links.
+          This site is a playground for pushing the limits of Javascript in the
+          browser. It is currently an Angular 17 / Bootstrap 4 microsite. Future
+          directions include sections for HTML5/JS browser games, simulations or
+          a perhaps a virtual art gallery.
         </p>
       </div>
     </div>

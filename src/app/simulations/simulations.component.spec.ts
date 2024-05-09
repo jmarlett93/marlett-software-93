@@ -9,11 +9,9 @@ describe('SimulationsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, StoreModule.forRoot([]) ],
-      declarations: [ SimulationsComponent ],
-
-    })
-    .compileComponents();
+      imports: [FormsModule, StoreModule.forRoot([])],
+      declarations: [SimulationsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

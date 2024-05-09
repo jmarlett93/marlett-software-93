@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-gutter',
+  standalone: true,
   templateUrl: './gutter.component.html',
-  styleUrls: ['./gutter.component.less']
+  styleUrls: ['./gutter.component.less'],
 })
-export class GutterComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class GutterComponent {
+  constructor() {}
 }

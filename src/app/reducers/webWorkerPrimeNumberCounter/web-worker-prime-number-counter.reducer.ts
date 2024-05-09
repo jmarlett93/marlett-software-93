@@ -1,5 +1,5 @@
-import * as  WebWorkerPrimeNumberCounterActions from 'src/app/reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.actions';
-import {createReducer, Action, on} from '@ngrx/store';
+import * as WebWorkerPrimeNumberCounterActions from 'src/app/reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.actions';
+import { createReducer, Action, on } from '@ngrx/store';
 
 export interface State {
   count: number;
@@ -8,14 +8,19 @@ export interface State {
 
 export const initialState: State = {
   count: 0,
-  isCalculating: false
+  isCalculating: false,
 };
 
 const webWorkerPrimeNumberCounterReducer = createReducer(
   initialState,
-  on(WebWorkerPrimeNumberCounterActions.SetWebWorkerCount, (state, {count}) => ({...state, count })),
-  on(WebWorkerPrimeNumberCounterActions.ToggleIsCalculating,
-    ( state ) => ({ ...state, isCalculating: !state.isCalculating }))
+  on(
+    WebWorkerPrimeNumberCounterActions.SetWebWorkerCount,
+    (state, { count }) => ({ ...state, count }),
+  ),
+  on(WebWorkerPrimeNumberCounterActions.ToggleIsCalculating, (state) => ({
+    ...state,
+    isCalculating: !state.isCalculating,
+  })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

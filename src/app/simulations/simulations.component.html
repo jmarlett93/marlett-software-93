@@ -1,95 +1,193 @@
 <section>
   <div class="container-fluid">
-  <div class="d-flex flex-column justify-content-around flex-md-row">
-    <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
-      <img src="assets/images/isPrime.PNG" class="card-img-top" alt="prime number test function">
-      <div class="card-body">
-        <div class="card-title text-center">
-          <strong>Prime Number Generator: Putting Web Workers To Work</strong>
-        </div>
-        <div class="card-text">
-          <div class="row">
-            <div class="col d-flex flex-column">
-              <p>In this simulation we will run a costly function to count the number of prime numbers
-                within a large range. Performing this operation on the main thread will slow down our
-                UI controls with blocking I/O. We will demonstrate how a webworker can take the calculation
-                burden off the main thread, keeping our user experience smooth. Read more about webworkers on MDN, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" target="_blank">here.</a>
-              </p>
+    <div class="d-flex flex-column justify-content-around flex-md-row">
+      <div
+        class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto"
+      >
+        <img
+          src="assets/images/isPrime.PNG"
+          class="card-img-top"
+          alt="prime number test function"
+        />
+        <div class="card-body">
+          <div class="card-title text-center">
+            <strong>Prime Number Generator: Putting Web Workers To Work</strong>
+          </div>
+          <div class="card-text">
+            <div class="row">
+              <div class="col d-flex flex-column">
+                <p>
+                  In this simulation we will run a costly function to count the
+                  number of prime numbers within a large range. Performing this
+                  operation on the main thread will slow down our UI controls
+                  with blocking I/O. We will demonstrate how a webworker can
+                  take the calculation burden off the main thread, keeping our
+                  user experience smooth. Read more about webworkers on MDN,
+                  <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API"
+                    target="_blank"
+                    >here.</a
+                  >
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto">
-      <div class="card-body">
-        <div class="card-title text-center">
-          <strong>A / B Comparison</strong>
-        </div>
-        <div class="card-text">
-          <div class="row">
-            <div class="col d-flex flex-column">
-              <p class="small">Test the performance cost of calculating the number of prime numbers in range 500,000 on the
-                main thread by pushing the button on the left. While the calculation is running, try to toggle the UI controls below.
-                <span class="text-danger">Warning: the website will become temporarily unresponsive when you click! Just
-                wait until the calculation finishes up.</span>
-                Next, run the same calculation with a web worker in a separate thread. Notice how you
-                can now toggle the ui controls with ease.</p>
-              <ul class="list-group mt-5 mb-5">
-                <li class="list-group-item list-group-item-action active small d-flex justify-content-between align-items-center" >
-                  <span>Check the following while comparing ui performance during calculation: </span></li>
-                <li class="jm-transparent small list-group-item d-flex align-items-center" >
-                  <span class="mr-2 badge badge-primary badge-pill">1</span> buttons highlight on hover</li>
-                <li class="jm-transparent small list-group-item d-flex align-items-center" >
-                  <span class="mr-2 badge badge-primary badge-pill">2</span>buttons and links respond to clicks</li>
-                <li class="jm-transparent small list-group-item d-flex align-items-center" >
-                  <span class="mr-2 badge badge-primary badge-pill">3</span>page is scrollable</li>
-                <li class="jm-transparent small list-group-item d-flex align-items-center" >
-                  <span class="mr-2 badge badge-primary badge-pill">4</span>loading spinner activates </li>
-              </ul>
-            </div>
+      <div
+        class="card p-2 mb-3 mb-md-auto align-self-center align-self-md-auto"
+      >
+        <div class="card-body">
+          <div class="card-title text-center">
+            <strong>A / B Comparison</strong>
           </div>
-          <div class="row">
-            <div class="col-6 d-flex flex-column">
-              <button class="jm-button pl-4 pr-4 align-self-center" type="button"
-                      (click)="randomNumberGenerate()">Run Main Thread</button>
-              <div class="input-group mt-3">
-                <div class="input-group-prepend jm-prepend">
-                  <span class="input-group-text">Prime #</span>
-                </div>
-                <input [(ngModel)]="mainThreadCount"
-                       class="jm-input form-control pl-2"/>
-                <div *ngIf="mainThreadSpinner" class="input-group-append jm-prepend">
-                  <div class="spinner-border m-2 text-light spinner-border-sm"></div>
-                </div>
+          <div class="card-text">
+            <div class="row">
+              <div class="col d-flex flex-column">
+                <p class="small">
+                  Test the performance cost of calculating the number of prime
+                  numbers in range 500,000 on the main thread by pushing the
+                  button on the left. While the calculation is running, try to
+                  toggle the UI controls below.
+                  <span class="text-danger"
+                    >Warning: the website will become temporarily unresponsive
+                    when you click! Just wait until the calculation finishes
+                    up.</span
+                  >
+                  Next, run the same calculation with a web worker in a separate
+                  thread. Notice how you can now toggle the ui controls with
+                  ease.
+                </p>
+                <ul class="list-group mt-5 mb-5">
+                  <li
+                    class="list-group-item list-group-item-action active small d-flex justify-content-between align-items-center"
+                  >
+                    <span
+                      >Check the following while comparing ui performance during
+                      calculation:
+                    </span>
+                  </li>
+                  <li
+                    class="jm-transparent small list-group-item d-flex align-items-center"
+                  >
+                    <span class="mr-2 badge badge-primary badge-pill">1</span>
+                    buttons highlight on hover
+                  </li>
+                  <li
+                    class="jm-transparent small list-group-item d-flex align-items-center"
+                  >
+                    <span class="mr-2 badge badge-primary badge-pill">2</span
+                    >buttons and links respond to clicks
+                  </li>
+                  <li
+                    class="jm-transparent small list-group-item d-flex align-items-center"
+                  >
+                    <span class="mr-2 badge badge-primary badge-pill">3</span
+                    >page is scrollable
+                  </li>
+                  <li
+                    class="jm-transparent small list-group-item d-flex align-items-center"
+                  >
+                    <span class="mr-2 badge badge-primary badge-pill">4</span
+                    >loading spinner activates
+                  </li>
+                </ul>
               </div>
-              <a *ngIf="mainThreadCount > 0" target="_blank" (click)="clear()">clear</a>
             </div>
-            <div class="col-6 d-flex flex-column">
-              <button (click)="runWebWorkerPrimeCounter()" class="jm-button pl-4 pr-4 align-self-center"
-                      type="button">Run Web Worker</button>
-              <ng-container *ngIf="primeNumberCounterState$ | async as counterState">
+            <div class="row">
+              <div class="col-6 d-flex flex-column">
+                <button
+                  class="jm-button pl-4 pr-4 align-self-center"
+                  type="button"
+                  (click)="randomNumberGenerate()"
+                >
+                  Run Main Thread
+                </button>
                 <div class="input-group mt-3">
-                  <div class="input-group-prepen jm-prepend">
+                  <div class="input-group-prepend jm-prepend">
                     <span class="input-group-text">Prime #</span>
                   </div>
-                  <input [ngModel]="counterState.count" class="jm-input form-control pl-2"/>
-                  <div *ngIf="counterState.isCalculating" class="input-group-append jm-prepend">
-                    <div class="spinner-border m-2 text-light spinner-border-sm"></div>
+                  <input
+                    [(ngModel)]="mainThreadCount"
+                    class="jm-input form-control pl-2"
+                  />
+                  <div
+                    *ngIf="mainThreadSpinner"
+                    class="input-group-append jm-prepend"
+                  >
+                    <div
+                      class="spinner-border m-2 text-light spinner-border-sm"
+                    ></div>
                   </div>
                 </div>
-                <a *ngIf="counterState.count > 0" target="_blank" (click)="clearWebWorkerCount()">clear</a>
-              </ng-container>
+                @if (mainThreadCount > 0) {
+                  <button type="button" class="btn btn-link" (click)="clear()">
+                    clear
+                  </button>
+                }
+              </div>
+              <div class="col-6 d-flex flex-column">
+                <button
+                  (click)="runWebWorkerPrimeCounter()"
+                  class="jm-button pl-4 pr-4 align-self-center"
+                  type="button"
+                >
+                  Run Web Worker
+                </button>
+                <ng-container
+                  *ngIf="primeNumberCounterState$ | async as counterState"
+                >
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepen jm-prepend">
+                      <span class="input-group-text">Prime #</span>
+                    </div>
+                    <input
+                      [ngModel]="counterState.count"
+                      class="jm-input form-control pl-2"
+                    />
+                    <div
+                      *ngIf="counterState.isCalculating"
+                      class="input-group-append jm-prepend"
+                    >
+                      <div
+                        class="spinner-border m-2 text-light spinner-border-sm"
+                      ></div>
+                    </div>
+                  </div>
+                  @if (counterState.count > 0) {
+                    <button
+                      type="button"
+                      class="btn btn-link"
+                      *ngIf=""
+                      (click)="clearWebWorkerCount()"
+                    >
+                      clear
+                    </button>
+                  }
+                </ng-container>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col d-flex flex-column">
-              <div class="mt-4 btn-group">
-                <button class="btn btn-info" [ngClass]="responsiveToggle ? 'disabled': ''"
-                        type=button (click)="toggleResponsive()">TOGGLE OPEN</button>
-                <button *ngIf="responsiveToggle"
-                        [ngClass]="responsiveToggle ? '': 'disabled'"
-                        type=button (click)="toggleResponsive()"
-                        class="btn btn-warning">TOGGLE CLOSE</button>
+            <div class="row">
+              <div class="col d-flex flex-column">
+                <div class="mt-4 btn-group">
+                  <button
+                    class="btn btn-info"
+                    [ngClass]="responsiveToggle ? 'disabled' : ''"
+                    type="button"
+                    (click)="toggleResponsive()"
+                  >
+                    TOGGLE OPEN
+                  </button>
+                  <button
+                    *ngIf="responsiveToggle"
+                    [ngClass]="responsiveToggle ? '' : 'disabled'"
+                    type="button"
+                    (click)="toggleResponsive()"
+                    class="btn btn-warning"
+                  >
+                    TOGGLE CLOSE
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -97,5 +195,4 @@
       </div>
     </div>
   </div>
-</div>
 </section>

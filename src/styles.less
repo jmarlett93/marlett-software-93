@@ -1,5 +1,66 @@
+@import './app/assets/variables.less';
 
-html, body, div, span, applet, object, iframe, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, label, legend, main, p, blockquote, table, caption, tbody, tfoot, thead, tr, th, td {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+label,
+legend,
+main,
+p,
+blockquote,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
   margin: 0;
   padding: 0;
   border: 0;
@@ -8,33 +69,32 @@ html, body, div, span, applet, object, iframe, a, abbr, acronym, address, big, c
   font-style: inherit;
   font-size: 100%;
   font-family: inherit;
-  display: block; }
+  display: block;
+}
 
 @media (max-width: 500px) {
-  body { font-size: 85%; }
+  body {
+    font-size: 85%;
+  }
 }
 
 @media (max-width: 880px) {
-  body { font-size: 90%; }
+  body {
+    font-size: 90%;
+  }
 }
 
 @media (max-width: 1200px) {
-  body { font-size: 100%; }
+  body {
+    font-size: 100%;
+  }
 }
 
 body {
   background-color: @pitch-black !important;
 }
 
-@primary-blue: #046DD6;
-@midnight-blue: #14133D;
-@lightning-blue: #CEE8E8;
-@pyschedelic-blue: #8EE0E0;
-@peach-white: #FCE6D3;
-@pitch-black:  #080811;
-@transparent-grey: rgba(179, 183, 193, 0.65);
-
-@fonts:'Roboto', 'Ostrich Sans', 'Oswald Sans', 'Helvetica';
+@fonts: 'Roboto', 'Ostrich Sans', 'Oswald Sans', 'Helvetica';
 
 .jm-button {
   //width: 5em;
@@ -50,7 +110,7 @@ body {
   padding-right: 0.55em;
   margin: 0.5em;
   font-size: 1em;
-  line-height:1em;
+  line-height: 1em;
   text-decoration: none;
   text-align: center;
   -webkit-transition: all 500ms ease-out;
@@ -58,12 +118,12 @@ body {
   -o-transition: all 500ms ease-out;
   transition: all 500ms ease-out;
   cursor: pointer;
-  &:hover{
+  &:hover {
     border-color: @peach-white !important;
   }
 }
 
-.jm-input{
+.jm-input {
   background-color: transparent !important;
   border: solid !important;
   border-width: 0.085em !important;
@@ -71,10 +131,9 @@ body {
   font-size: 1em;
   font-weight: 500;
   color: @midnight-blue !important;
-  &:focus{
+  &:focus {
     border-color: @peach-white !important;
   }
-
 }
 
 .jm-transparent {
@@ -83,10 +142,9 @@ body {
 }
 
 .jm-prepend {
-    border-color: @primary-blue !important;
-    background-color: @primary-blue !important;
-    color: @peach-white !important;
-
+  border-color: @primary-blue !important;
+  background-color: @primary-blue !important;
+  color: @peach-white !important;
 
   span {
     border-color: @primary-blue !important;
@@ -95,13 +153,12 @@ body {
   }
 }
 
-
-button, input {
-
+button,
+input {
   &.disabled {
     cursor: not-allowed !important;
   }
-  &:focus{
+  &:focus {
     outline: none !important;
     box-shadow: none !important;
   }

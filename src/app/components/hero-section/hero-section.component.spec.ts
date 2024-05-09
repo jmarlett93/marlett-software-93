@@ -8,9 +8,8 @@ describe('HeroSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeroSectionComponent ]
-    })
-    .compileComponents();
+      declarations: [HeroSectionComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
