@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { range } from 'lodash';
-import { Observable } from 'rxjs';
 import { ApplicationState } from '../app.state';
 import * as primeCounterActions from '../reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.actions';
 import { selectWebWorkerPrimeNumberCounterState } from '../reducers/webWorkerPrimeNumberCounter/web-worker-prime-number-counter.selectors';
@@ -11,24 +10,16 @@ import { selectWebWorkerPrimeNumberCounterState } from '../reducers/webWorkerPri
   templateUrl: './simulations.component.html',
   styleUrls: ['./simulations.component.less'],
 })
-export class SimulationsComponent implements OnInit {
+export class SimulationsComponent {
   mainThreadCount = 0;
-  primeNumberCounterState$: Observable<{
-    count: number;
-    isCalculating: boolean;
-  }>;
+
   responsiveToggle = false;
   mainThreadSpinner = false;
+  private store$ = inject(Store<ApplicationState>);
 
-  constructor(private store$: Store<ApplicationState>) {}
-
-  ngOnInit() {
-    const start = Date.now();
-    const end = Date.now() - start;
-    this.primeNumberCounterState$ = this.store$.pipe(
-      select(selectWebWorkerPrimeNumberCounterState),
-    );
-  }
+  primeNumberCounterState$ = this.store$.pipe(
+    select(selectWebWorkerPrimeNumberCounterState),
+  );
 
   clear() {
     this.mainThreadCount = 0;
@@ -53,7 +44,7 @@ export class SimulationsComponent implements OnInit {
     this.mainThreadSpinner = true;
     let count = 0;
     const array = range(500000);
-    array.forEach((item, index) => {
+    array.forEach((item) => {
       this.isPrime(item) ? (count += 1) : null;
     });
     this.mainThreadCount = count;

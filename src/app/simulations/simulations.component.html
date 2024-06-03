@@ -44,28 +44,24 @@
           <div class="card-text">
             <div class="row">
               <div class="col d-flex flex-column">
-                <p class="small">
+                <p>
                   Test the performance cost of calculating the number of prime
                   numbers in range 500,000 on the main thread by pushing the
                   button on the left. While the calculation is running, try to
                   toggle the UI controls below.
-                  <span class="text-danger"
-                    >Warning: the website will become temporarily unresponsive
-                    when you click! Just wait until the calculation finishes
-                    up.</span
-                  >
-                  Next, run the same calculation with a web worker in a separate
-                  thread. Notice how you can now toggle the ui controls with
-                  ease.
+                </p>
+                <p>
+                  Warning: the website will become temporarily unresponsive when
+                  you click! Just wait until the calculation finishes up. Next,
+                  run the same calculation with a web worker on a separate
+                  thread. Notice how you can now toggle the ui controls
+                  uninterrupted.
                 </p>
                 <ul class="list-group mt-5 mb-5">
                   <li
                     class="list-group-item list-group-item-action active small d-flex justify-content-between align-items-center"
                   >
-                    <span
-                      >Check the following while comparing ui performance during
-                      calculation:
-                    </span>
+                    <span>UI performance test criteria: </span>
                   </li>
                   <li
                     class="jm-transparent small list-group-item d-flex align-items-center"
@@ -134,9 +130,7 @@
                 >
                   Run Web Worker
                 </button>
-                <ng-container
-                  *ngIf="primeNumberCounterState$ | async as counterState"
-                >
+                @if (primeNumberCounterState$ | async; as counterState) {
                   <div class="input-group mt-3">
                     <div class="input-group-prepen jm-prepend">
                       <span class="input-group-text">Prime #</span>
@@ -158,13 +152,12 @@
                     <button
                       type="button"
                       class="btn btn-link"
-                      *ngIf=""
                       (click)="clearWebWorkerCount()"
                     >
                       clear
                     </button>
                   }
-                </ng-container>
+                }
               </div>
             </div>
             <div class="row">

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faConnectdevelop,
@@ -15,7 +15,7 @@ import { WheelItemComponent } from '../wheel-item/wheel-item.component';
   templateUrl: './about-section.component.html',
   styleUrls: ['./about-section.component.less'],
 })
-export class AboutSectionComponent implements OnInit {
+export class AboutSectionComponent {
   @ViewChild('linkWheel') linkWheel: ElementRef;
   constructor() {}
   fasLinkedIn = faLinkedin;
@@ -47,8 +47,6 @@ export class AboutSectionComponent implements OnInit {
       text: 'Eponymous Website is Down Sketch',
     },
   ];
-
-  ngOnInit() {}
 
   positionTop(radius, index, arrayLength) {
     return (
