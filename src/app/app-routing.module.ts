@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
@@ -10,6 +10,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./simulations/simulations.module').then(
         (m) => m.SimulationsModule,
+      ),
+  },
+  {
+    path: 'games',
+    loadComponent: () =>
+      import('./components/games/games.component').then(
+        (x) => x.GameShellComponent,
       ),
   },
 ];

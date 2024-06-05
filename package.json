@@ -35,6 +35,7 @@
     "jquery": "^3.3.1",
     "lodash": "^4.17.15",
     "observable-webworker": "^3.2.3",
+    "phaser": "^3.80.1",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
     "zone.js": "^0.14.0"
