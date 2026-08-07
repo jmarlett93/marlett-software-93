@@ -1,0 +1,90 @@
+<section class="bg-[var(--ink)]">
+  <div class="relative">
+    <img
+      class="block h-auto w-full"
+      src="assets/images/milkyway.jpg"
+      alt="Milky Way over a mountain ridge"
+    />
+
+    <div
+      class="absolute inset-x-0 bottom-0 flex flex-col items-start px-6 pb-10 pt-24 sm:px-12 sm:pb-14"
+    >
+      <h1
+        class="animate-fade-rise max-w-3xl text-4xl font-semibold tracking-tight text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)] sm:text-6xl"
+      >
+        Engineering Excellence
+      </h1>
+      <p
+        class="animate-fade-rise-delay mt-4 max-w-xl text-base text-white/90 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:text-lg"
+      >
+        Welcome to my professional website. Get in contact, check out what I'm up to, or stay for
+        some fun and games in the browser lab.
+      </p>
+      <div class="animate-fade-rise-delay mt-7 flex flex-wrap gap-3">
+        <a
+          routerLink="/lab"
+          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+        >
+          Open the lab
+          <mat-icon class="!text-lg" aria-hidden="true">arrow_forward</mat-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[var(--ink)]" aria-labelledby="resume-heading">
+  <div class="px-6 py-16 sm:px-12 sm:py-20">
+    <p class="mb-3 flex items-center gap-2 text-xs tracking-[0.28em] text-white/60 uppercase">
+      <mat-icon class="!text-base text-[var(--accent)]" aria-hidden="true">person</mat-icon>
+      Resume
+    </p>
+    <h2
+      id="resume-heading"
+      class="pt-serif-bold max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl"
+    >
+      John Marlett
+    </h2>
+    <p class="mt-4 max-w-2xl text-sm text-[var(--fog)] sm:text-base">
+      I am a professional software builder and team leader, interested in building great culture,
+      elegant systems, and cutting edge sofware technology. I am currently building AI agents and full stack products 
+      with Node, Langraph, and AWS to transform the real estate industry with
+      <a
+        class="text-white/70 underline decoration-white/25 underline-offset-4 transition hover:text-(--accent) hover:decoration-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
+        href="https://crexi.com"
+        target="_blank"
+        rel="noreferrer"
+        >Crexi</a
+      >.
+      In 2024, I founded
+      <a
+        class="text-white/70 underline decoration-white/25 underline-offset-4 transition hover:text-(--accent) hover:decoration-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
+        href="https://qstr.cursus.tools/login"
+        target="_blank"
+        rel="noreferrer"
+        >Quaestor</a
+      >,
+      an AI operations tool for small business. Outside of work, I enjoy a dry martini and rugby.
+    </p>
+
+    <ul class="mt-6 flex flex-wrap items-center gap-5" aria-label="Profiles and writing">
+      @for (link of socialLinks; track link.href) {
+        <li>
+          <a
+            class="inline-flex items-center gap-1.5 text-sm text-white/90 transition hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            [href]="link.href"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <mat-icon class="!text-base" aria-hidden="true">{{ link.icon }}</mat-icon>
+            <span
+              class="underline decoration-white/30 underline-offset-4 hover:decoration-[var(--accent)]"
+            >
+              {{ link.label }}
+            </span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

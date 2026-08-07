@@ -1,0 +1,265 @@
+<div class="lab">
+  <div class="lab-intro px-6 pb-8 pt-10 sm:px-12">
+    <header class="animate-fade-rise max-w-3xl">
+      <p class="mb-3 flex items-center gap-2 text-xs tracking-[0.28em] text-white/60 uppercase">
+        <mat-icon class="text-base! text-(--accent)" aria-hidden="true">science</mat-icon>
+        Lab
+      </p>
+      <h1 class="text-4xl font-semibold tracking-tight text-white sm:text-6xl">
+        Pushing the browser to its limits.
+      </h1>
+      <p class="mt-5 max-w-2xl text-base text-(--fog) sm:text-lg">
+        Here we showcase the power of the web browser with animation, WEBGL, webworkers, physics simulation, 
+        and even an AI helmsman. More to come!
+      </p>
+    </header>
+
+    <nav class="mt-8" aria-label="Lab sections">
+      <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+        @for (section of sections; track section.id) {
+          <li>
+            <a
+              class="inline-flex items-center gap-1.5 text-white/70 transition hover:text-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
+              routerLink="/lab"
+              [fragment]="section.id"
+            >
+              <mat-icon class="text-base!" aria-hidden="true">{{ section.icon }}</mat-icon>
+              <span
+                class="underline decoration-white/25 underline-offset-4 hover:decoration-(--accent)"
+              >
+                {{ section.label }}
+              </span>
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <section
+    id="sailing"
+    class="lab-section lab-section--sailing scroll-mt-20 border-t border-(--line) px-6 py-16 sm:px-12 sm:py-20"
+    aria-labelledby="sailing-heading"
+  >
+    <p class="mb-3 flex items-center gap-2 text-xs tracking-[0.28em] text-white/60 uppercase">
+      <mat-icon class="text-base! text-(--accent)" aria-hidden="true"
+        >sailing</mat-icon
+      >
+      Section 01
+    </p>
+    <h2 id="sailing-heading" class="text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+      Sailing simulator
+    </h2>
+    <p class="mt-5 max-w-2xl text-base text-(--fog) sm:text-lg">
+      Sailing is a complex physics problem. This simulation uses sailing polar data from the popular Melges 24 class,
+      and a live API of wind direction and velocity from some of my favorite places to
+      sail. I coded an AI auto pilot to plot a course and navigate around racing bouys. You can take over by
+      switching to manual mode.
+    </p>
+    <div class="mt-10">
+      <app-sailing-simulator />
+    </div>
+  </section>
+
+  <section
+    id="web-workers"
+    class="lab-section lab-section--workers scroll-mt-20 border-t border-(--line) px-6 py-16 sm:px-12 sm:py-20"
+    aria-labelledby="web-workers-heading"
+  >
+    <header class="animate-fade-rise max-w-3xl">
+      <p class="mb-3 flex items-center gap-2 text-xs tracking-[0.28em] text-white/60 uppercase">
+        <mat-icon class="text-base! text-(--accent)" aria-hidden="true">memory</mat-icon>
+        Section 02
+      </p>
+      <h2
+        id="web-workers-heading"
+        class="text-3xl font-semibold tracking-tight text-white sm:text-5xl"
+      >
+        Web Worker Threads
+      </h2>
+      <p class="mt-5 max-w-2xl text-base text-(--fog) sm:text-lg">
+        We will run an intensive compute function. Experiment A runs on the main thread; experiment B
+        runs in a web worker. Since javascript is single thread, the main thread run will block the UI controls,
+         while the worker run will not.
+      </p>
+    </header>
+
+    <div class="animate-fade-rise-delay mt-12" aria-labelledby="responsiveness-heading">
+      <div class="border-b border-(--line) pb-4">
+        <h3 id="responsiveness-heading" class="text-lg font-medium text-white">Responsiveness check</h3>
+        <p class="mt-1 text-sm text-white/55">
+          Notice how the clicker cannot increment during experiment A — it queues until the end once
+          the thread is clear. In experiment B, the clicker is not blocked.
+        </p>
+      </div>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          class="inline-flex items-center gap-2 border border-(--line) bg-white/5 px-4 py-2 text-sm text-white transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
+          (click)="registerClick()"
+        >
+          <mat-icon class="text-base!" aria-hidden="true">touch_app</mat-icon>
+          Clicker
+          <span class="tabular-nums text-(--accent)">{{ clickerCount() }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-14" aria-labelledby="comparison-heading">
+      <h3 id="comparison-heading" class="sr-only">Experiment A versus Experiment B</h3>
+
+      <div class="grid gap-10 lg:grid-cols-2 lg:gap-14">
+        <article>
+          <div class="mb-5 flex items-center gap-3">
+            <mat-icon class="text-(--warn)" aria-hidden="true">warning</mat-icon>
+            <div>
+              <h4 class="text-xl font-medium text-white">Experiment A · Main thread</h4>
+              <p class="text-sm text-white/50">Blocks painting, clicks, and scroll</p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="inline-flex w-full items-center justify-center gap-2 bg-(--warn) px-5 py-3 text-sm font-semibold text-(--ink) transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--warn)"
+            (click)="runMainThread()"
+          >
+            @if (mainBusy()) {
+              <mat-icon class="spin-soft text-lg!" aria-hidden="true">autorenew</mat-icon>
+              Calculating…
+            } @else {
+              <mat-icon class="text-lg!" aria-hidden="true">play_arrow</mat-icon>
+              Run experiment A
+            }
+          </button>
+
+          <dl class="mt-6 grid grid-cols-2 gap-4 border-t border-(--line) pt-5">
+            <div>
+              <dt class="text-xs tracking-wide text-white/45 uppercase">Result</dt>
+              <dd class="mt-1 text-3xl font-semibold tabular-nums text-white">
+                {{ mainCount() === null ? '—' : (mainCount() | number) }}
+              </dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-wide text-white/45 uppercase">Elapsed</dt>
+              <dd class="mt-1 text-3xl font-semibold tabular-nums text-white">
+                @if (mainElapsedMs() === null) {
+                  —
+                } @else {
+                  {{ mainElapsedMs() | number }}
+                  <span class="text-base font-normal text-white/45">ms</span>
+                }
+              </dd>
+            </div>
+          </dl>
+
+          @if (mainCount() !== null) {
+            <button
+              type="button"
+              class="mt-4 text-sm text-white/55 underline-offset-4 hover:text-white hover:underline"
+              (click)="clearMain()"
+            >
+              Clear A
+            </button>
+          }
+        </article>
+
+        <article>
+          <div class="mb-5 flex items-center gap-3">
+            <mat-icon class="text-(--accent)" aria-hidden="true">bolt</mat-icon>
+            <div>
+              <h4 class="text-xl font-medium text-white">Experiment B · Web Worker</h4>
+              <p class="text-sm text-white/50">Same work, separate thread</p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="inline-flex w-full items-center justify-center gap-2 bg-(--accent) px-5 py-3 text-sm font-semibold text-(--ink) transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) disabled:cursor-not-allowed disabled:opacity-50"
+            (click)="runWebWorker()"
+            [disabled]="workerBusy()"
+          >
+            @if (workerBusy()) {
+              <mat-icon class="spin-soft text-lg!" aria-hidden="true">autorenew</mat-icon>
+              Worker running…
+            } @else {
+              <mat-icon class="text-lg!" aria-hidden="true">play_arrow</mat-icon>
+              Run experiment B
+            }
+          </button>
+
+          <dl class="mt-6 grid grid-cols-2 gap-4 border-t border-(--line) pt-5">
+            <div>
+              <dt class="text-xs tracking-wide text-white/45 uppercase">Result</dt>
+              <dd class="mt-1 text-3xl font-semibold tabular-nums text-white">
+                {{ workerCount() === null ? '—' : (workerCount() | number) }}
+              </dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-wide text-white/45 uppercase">Elapsed</dt>
+              <dd class="mt-1 text-3xl font-semibold tabular-nums text-white">
+                @if (workerElapsedMs() === null) {
+                  —
+                } @else {
+                  {{ workerElapsedMs() | number }}
+                  <span class="text-base font-normal text-white/45">ms</span>
+                }
+              </dd>
+            </div>
+          </dl>
+
+          @if (workerCount() !== null) {
+            <button
+              type="button"
+              class="mt-4 text-sm text-white/55 underline-offset-4 hover:text-white hover:underline"
+              (click)="clearWorker()"
+            >
+              Clear B
+            </button>
+          }
+        </article>
+      </div>
+    </div>
+
+    <details class="lab-details mt-14">
+      <summary class="lab-details__summary">How the prime calculation works</summary>
+      <div class="lab-details__body">
+        <p class="text-sm text-(--fog)">
+          Both experiments count primes in a range of {{ range | number }}. Experiment A runs
+          <code class="text-white/80">countPrimesInRange</code> on the main thread; experiment B
+          posts the same work to a
+          <a
+            class="text-(--accent) underline decoration-(--accent)/40 underline-offset-4 hover:decoration-(--accent)"
+            [href]="mdnWorkersUrl"
+            target="_blank"
+            rel="noreferrer"
+            >Web Worker</a
+          >.
+        </p>
+
+        <div class="mt-8 grid items-center gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+          <ol class="space-y-3 text-sm text-(--fog)">
+            <li class="flex gap-3">
+              <span class="text-(--accent)">01</span>
+              Clicker updates propagate under experiment B while the worker calculates.
+            </li>
+            <li class="flex gap-3">
+              <span class="text-(--accent)">02</span>
+              Experiment A blocks the main thread, so clicker updates are stuck in queue until the loop finishes.
+            </li>
+          </ol>
+          <figure class="justify-self-center md:justify-self-end">
+            <img
+              class="max-h-56 w-auto opacity-90"
+              src="assets/images/isPrime.PNG"
+              alt="isPrime function used by the prime-counting simulation"
+            />
+            <figcaption class="mt-3 text-center text-xs tracking-wide text-white/40 uppercase">
+              Costly check running in both experiments
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </details>
+  </section>
+</div>

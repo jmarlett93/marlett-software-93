@@ -1,13 +1,34 @@
 # Marlett Software 93
 
-This project is an [Angular CLI](https://github.com/angular/angular-cli) micro app deployed to github pages for my personal website. I use this app to test out new technologies from little things like Canvas and CSS shenanigans to beefier application processes such as service workers.
+Personal site rebuilt on **Angular 22** with the Vite-based application builder, **Tailwind CSS 4**, and **Angular Material Icons**.
 
-Visit the live site [here](https://jmarlett93.github.io/marlett-software-93)
+Live site: [jmarlett93.github.io/marlett-software-93](https://jmarlett93.github.io/marlett-software-93)
 
-## Build
+## Requirements
 
-Run
+- Node `24.19+` (see `.nvmrc`)
 
-> npx ng build --output-path docs --base-href /marlett-software-93/
+## Develop
 
-to cut a release configuration for GitHub pages. Make a copy of index.html named 404.html and save to docs folder. Push master branch.
+```bash
+nvm use
+npm start
+```
+
+## Build (GitHub Pages)
+
+```bash
+npm run build:pages
+```
+
+Builds with `--base-href /marlett-software-93/`, copies `404.html` for SPA routes, and flattens `docs/browser/` into `docs/` for GitHub Pages (`Settings → Pages → Deploy from branch → master → /docs`).
+
+```bash
+git add docs
+git commit -m "Publish GitHub Pages build"
+git push origin master
+```
+
+## Assets
+
+Image and icon assets live in `public/assets/`.

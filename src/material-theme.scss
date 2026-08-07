@@ -1,0 +1,25 @@
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Sora,
+      density: 0,
+    )
+  );
+}
+
+body {
+  color-scheme: dark;
+  background-color: #071018;
+  color: #eef4f8;
+  font: var(--mat-sys-body-medium);
+  font-family: Sora, sans-serif;
+  margin: 0;
+  height: 100%;
+}

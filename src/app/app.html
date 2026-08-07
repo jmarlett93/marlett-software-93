@@ -1,0 +1,54 @@
+<a
+  class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-(--ink)"
+  href="#main-content"
+>
+  Skip to content
+</a>
+
+<header
+  class="sticky top-0 z-40 border-b border-white/10 bg-(--ink)/90 backdrop-blur-md"
+>
+  <nav
+    class="flex items-center justify-between px-6 py-3 sm:px-8"
+    aria-label="Primary"
+  >
+    <a
+      routerLink="/"
+      class="flex items-center gap-2 text-lg font-semibold tracking-wide text-white sm:text-xl"
+    >
+      <img
+        class="h-8 w-8 rounded-full object-cover object-top"
+        src="assets/images/de_milo_light_48.png"
+        alt=""
+        width="32"
+        height="32"
+      />
+      <span class="pt-serif-bold">John Marlett</span>
+    </a>
+    <ul class="flex items-center gap-1 text-base sm:text-lg">
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="text-white"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="rounded-full px-3 py-2 text-white/65 transition hover:text-white"
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/lab"
+          routerLinkActive="text-white"
+          class="rounded-full px-3 py-2 text-white/65 transition hover:text-white"
+        >
+          Lab
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main-content">
+  <router-outlet />
+</main>

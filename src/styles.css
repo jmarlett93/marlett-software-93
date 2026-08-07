@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+:root {
+  --ink: #071018;
+  --ink-soft: #0f1c2a;
+  --fog: rgba(236, 244, 255, 0.78);
+  --paper: #eef4f8;
+  --accent: #3ecfbf;
+  --accent-deep: #149e90;
+  --warn: #e8a23a;
+  --line: rgba(238, 244, 248, 0.14);
+  --header-height: 3.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin-soft {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fade-rise {
+  animation: fade-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-rise-delay {
+  animation: fade-rise 800ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+
+.spin-soft {
+  animation: spin-soft 0.8s linear infinite;
+}
+.pt-serif-regular {
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-serif-bold {
+  font-family: "PT Serif", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-serif-regular-italic {
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pt-serif-bold-italic,
+.pt-serif-italic-bold {
+  font-family: "PT Serif", serif;
+  font-weight: 700;
+  font-style: italic;
+}

@@ -1,0 +1,197 @@
+<div class="sailing">
+  <div class="sailing__toolbar">
+    <label class="sailing__station">
+      <span class="sailing__station-label">Station</span>
+      <select
+        class="sailing__station-select"
+        [value]="selectedStationId()"
+        (change)="onWindStationChange($event)"
+        aria-label="NOAA weather station"
+      >
+        @for (station of windStations; track station.id) {
+          <option [value]="station.id">{{ station.label }}</option>
+        }
+      </select>
+    </label>
+
+    <div class="sailing__helm-block">
+      <div class="sailing__helm" role="group" aria-label="Helm mode">
+        <button
+          type="button"
+          class="sailing__helm-btn"
+          [class.is-active]="helmMode() === 'auto'"
+          [attr.aria-pressed]="helmMode() === 'auto'"
+          (click)="setHelmMode('auto')"
+        >
+          Auto
+        </button>
+        <button
+          type="button"
+          class="sailing__helm-btn"
+          [class.is-active]="helmMode() === 'manual'"
+          [attr.aria-pressed]="helmMode() === 'manual'"
+          (click)="setHelmMode('manual')"
+        >
+          Manual
+        </button>
+      </div>
+      <p class="sailing__helm-hint">
+        @if (helmMode() === 'manual') {
+          A / D rotate the boat
+        } @else {
+          Autopilot steering · switch to Manual and use the A and D keys to rotate the boat
+        }
+      </p>
+    </div>
+  </div>
+
+  <dl class="sailing__stats sailing__stats--primary">
+    <div>
+      <dt>Wind</dt>
+      <dd>
+        @if (latestSample(); as sample) {
+          {{ sample.knots | number: '1.0-1' }} kn
+          @if (usingDirectionFallback()) {
+            · 0° N
+          } @else if (sample.degrees !== null) {
+            · {{ sample.degrees }}°
+          }
+        } @else if (usingDirectionFallback()) {
+          0° N
+        } @else {
+          —
+        }
+      </dd>
+    </div>
+    <div>
+      <dt>Boat speed</dt>
+      <dd>
+        @if (boat(); as b) {
+          {{ b.speedKnots | number: '1.0-1' }} kn
+        } @else {
+          —
+        }
+      </dd>
+    </div>
+  </dl>
+
+  @if (errorMessage()) {
+    <p class="sailing__error" role="status">{{ errorMessage() }}</p>
+  }
+
+  @if (pixiError()) {
+    <p class="sailing__error" role="alert">Canvas error: {{ pixiError() }}</p>
+  }
+
+  <div
+    #stage
+    class="sailing__stage"
+    tabindex="0"
+    role="img"
+    aria-label="Sailing race course. Auto driver tacks upwind; Manual uses A and D to rotate the player boat."
+  ></div>
+
+  <details class="sailing__details">
+    <summary class="sailing__details-summary">Details &amp; race readout</summary>
+    <div class="sailing__details-body">
+      <p class="sailing__details-lead">
+        Live maritime wind from NOAA NDBC.
+        @switch (status()) {
+          @case ('live') {
+            Connected to {{ selectedWindStationLabel() }}.
+          }
+          @case ('error') {
+            Wind feed error — using fallback when needed.
+          }
+          @default {
+            Connecting to NDBC…
+          }
+        }
+        Each second we poll the latest observation and drive wind across the course.
+      </p>
+
+      <p class="sailing__details-lead">
+        Boat speed comes from the official Melges 24 
+        <strong class="font-medium text-white/85">polar</strong>
+        — a table of boat speed in knots for each wind speed and wind angle. Polars encode how
+        fast a boat can go close-hauled, reaching, and running; the physics engine moves the boat according to these values,
+        and the auto pilot uses them to plan tacks and mark approaches. Browse
+        published polars at for more information.
+        <a
+          class="sailing__details-link"
+          href="https://www.boatpolars.com/"
+          target="_blank"
+          rel="noreferrer"
+          >boatpolars.com</a
+        >.
+      </p>
+      <p class="sailing__details-lead">I used PIXI JS and web GL for rendering. In the future I will add additional boats to race against, 
+        enhance the physics engine to include acceleration, enhance weather by building in weather model patterns,
+        include different strategies for the auto pilot to predict best course based on weather pattern recognition over time,
+        and finally a tactical module so the auto pilot makes specific calls to beat other boats based on predicted positioning, race rules and weather predictions.
+
+      </p>
+
+      <dl class="sailing__stats">
+        <div>
+          <dt>Boat</dt>
+          <dd>
+            @if (boat(); as b) {
+              {{ b.speedKnots | number: '1.0-1' }} kn · TWS
+              {{ b.trueWindSpeedKnots | number: '1.0-1' }} · hdg
+              {{ b.headingDegrees | number: '1.0-0' }}° · TWA
+              {{ b.trueWindAngleDegrees }}°
+            } @else {
+              —
+            }
+          </dd>
+        </div>
+        <div>
+          <dt>Your race</dt>
+          <dd>
+            Goal {{ goalBuoy() }}
+            @if (courseSide()) {
+              · side {{ courseSide() }}
+            }
+            · laps {{ laps() }}
+          </dd>
+        </div>
+        <div class="min-w-0 max-w-[22rem] shrink">
+          <dt>Rules</dt>
+          <dd class="truncate whitespace-nowrap" [attr.title]="trafficStatus()">
+            {{ trafficStatus() }}
+          </dd>
+        </div>
+        <div>
+          <dt>Driver</dt>
+          <dd>{{ driverReason() }}</dd>
+        </div>
+      </dl>
+
+      @if (standings().length) {
+        <ol class="sailing__standings" aria-label="Race standings">
+          @for (entry of standings(); track entry.id) {
+            <li
+              class="sailing__standing"
+              [attr.data-color]="entry.colorId"
+              [attr.data-foul]="entry.servingFoul ? 'serving' : null"
+            >
+              <span class="sailing__standing-place">{{ entry.place }}</span>
+              <span class="sailing__standing-name">{{ entry.shortName }}</span>
+              <span class="sailing__standing-meta">
+                g{{ entry.goalBuoy }} · L{{ entry.laps }} ·
+                {{ entry.speedKnots | number: '1.0-1' }} kn
+                @if (entry.foulCount > 0) {
+                  · F{{ entry.foulCount }}
+                }
+                @if (entry.servingFoul) {
+                  · foul
+                }
+              </span>
+            </li>
+          }
+        </ol>
+      }
+    </div>
+  </details>
+</div>
