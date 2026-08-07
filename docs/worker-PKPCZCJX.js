@@ -1,0 +1,1 @@
+var n=r=>{let e=0;for(let t=0;t<r;t+=1)o(t)&&(e+=1);return e},o=r=>{if(r<2)return!1;for(let e=2;e<r/2;e+=1)if(r%e===0)return!1;return!0};addEventListener("message",({data:r})=>{let e=n(r);postMessage(e)});
