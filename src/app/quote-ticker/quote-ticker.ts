@@ -4,15 +4,17 @@ import {
   DestroyRef,
   ElementRef,
   inject,
+  signal,
   viewChild,
 } from '@angular/core';
 
 const QUOTES = [
-  'Dream manfully and well, and your dreams will be your prophets.',
+  'Dream manfully and nobly, and thy dreams shall be prophets.',
   'Late have I loved you, O Beauty ever ancient, ever new.',
   'The nymphs are departed… Departed, have left no addresses.',
   'You called, you shouted, and you broke through my deafness.',
   'If you can trust yourself when all men doubt you, but make allowance for their doubting too;',
+  'O lente, lente currite noctis equi.',
 ];
 
 const FADE_MS = 900;
@@ -24,7 +26,8 @@ type Jump = 'restart' | 'back';
 
 /**
  * Header quote rotation: fade in, scroll sideways if it overflows, fade out, next.
- * Hovering pauses the motion; the ‹ button rewinds the quote, or steps back one if already at its start.
+ * Hovering pauses the motion; the ‹ button rewinds the quote, or steps back one if already at its start,
+ * and the copy button (top right) puts the current quote on the clipboard.
  */
 @Component({
   selector: 'app-quote-ticker',
@@ -41,6 +44,23 @@ type Jump = 'restart' | 'back';
     >
       ‹
     </button>
+    <button
+      type="button"
+      class="ticker__copy text-marble-dim transition-[opacity,color] hover:text-phosphor"
+      [class.is-copied]="copied()"
+      [attr.aria-label]="copied() ? 'Quote copied' : 'Copy quote to clipboard'"
+      (click)="copy()"
+    >
+      @if (copied()) {
+        <span class="ticker__copied">Copied</span>
+      } @else {
+        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.25">
+          <rect x="5.5" y="5.5" width="8" height="8" />
+          <path d="M3.5 10.5h-1v-8h8v1" />
+        </svg>
+      }
+    </button>
+    <span class="sr-only" aria-live="polite">{{ copied() ? 'Quote copied to clipboard' : '' }}</span>
     <div #viewport class="ticker">
       <p #line class="display ticker__line text-[1.3125rem] leading-none italic text-marble-dim"></p>
     </div>
@@ -87,13 +107,40 @@ type Jump = 'restart' | 'back';
       cursor: pointer;
     }
 
-    :host(:hover) .ticker__back,
-    .ticker__back:focus-visible {
+    /* Small copy control in the top-right corner, above the faded edge. */
+    .ticker__copy {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      display: grid;
+      place-items: center;
+      padding: 0.3rem;
+      line-height: 1;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .ticker__copied {
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .ticker__copy.is-copied {
+      color: var(--phosphor);
+    }
+
+    :host(:hover) :is(.ticker__back, .ticker__copy),
+    :is(.ticker__back, .ticker__copy):focus-visible,
+    .ticker__copy.is-copied {
       opacity: 1;
     }
 
     @media (hover: none) {
-      .ticker__back {
+      .ticker__back,
+      .ticker__copy {
         opacity: 0.6;
       }
     }
@@ -101,6 +148,9 @@ type Jump = 'restart' | 'back';
 })
 export class QuoteTicker {
   protected paused = false;
+  protected readonly copied = signal(false);
+  private current = QUOTES[0];
+  private copiedTimer?: ReturnType<typeof setTimeout>;
 
   private readonly viewport = viewChild.required<ElementRef<HTMLElement>>('viewport');
   private readonly line = viewChild.required<ElementRef<HTMLElement>>('line');
@@ -111,6 +161,17 @@ export class QuoteTicker {
   constructor() {
     inject(DestroyRef).onDestroy(() => (this.alive = false));
     afterNextRender(() => void this.cycle());
+  }
+
+  protected async copy(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(this.current);
+    } catch {
+      return; // Clipboard blocked (insecure context or denied); leave the icon as is.
+    }
+    this.copied.set(true);
+    clearTimeout(this.copiedTimer);
+    this.copiedTimer = setTimeout(() => this.copied.set(false), 1600);
   }
 
   protected rewind(): void {
@@ -140,6 +201,7 @@ export class QuoteTicker {
     line.getAnimations().forEach((a) => a.cancel());
     // Set text directly so the width below is measured on this quote, not the last.
     line.textContent = quote;
+    this.current = quote;
     this.scrolled = false;
     const distance = Math.max(0, line.scrollWidth - this.viewport().nativeElement.clientWidth);
 
