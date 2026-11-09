@@ -1,4 +1,4 @@
-import{ot as r,st as s}from"./main-KUS4TX7C.js";import{C as Ee,G as k$1,R as Y,S as E$1,V as b,z as _i}from"./chunk-B8BwSEZI.js";import{g as Fe,o as Ue}from"./chunk-DixViEJU.js";var _={name:`local-uniform-bit`,vertex:{header:`
+import{lt as r,ut as s}from"./main-3GDKGNEQ.js";import{C as Ee,G as k$1,R as Y,S as E$1,V as b,z as _i}from"./chunk-hQR_EOSE.js";import{g as Fe,o as Ue}from"./chunk-BQBqu8xB.js";var _={name:`local-uniform-bit`,vertex:{header:`
 
             struct LocalUniforms {
                 uTransformMatrix:mat3x3<f32>,
