@@ -1,54 +1,102 @@
 <a
-  class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-(--ink)"
+  class="label sr-only text-void focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-marble focus:px-3 focus:py-2"
   href="#main-content"
 >
   Skip to content
 </a>
 
-<header
-  class="sticky top-0 z-40 border-b border-white/10 bg-(--ink)/90 backdrop-blur-md"
->
+<header class="sticky top-0 z-40 border-b border-line bg-void/80 backdrop-blur-md">
   <nav
-    class="flex items-center justify-between px-6 py-3 sm:px-8"
+    class="flex h-(--header-height) items-center justify-between gap-4 px-(--gutter)"
     aria-label="Primary"
   >
-    <a
-      routerLink="/"
-      class="flex items-center gap-2 text-lg font-semibold tracking-wide text-white sm:text-xl"
-    >
-      <img
-        class="h-8 w-8 rounded-full object-cover object-top"
-        src="assets/images/de_milo_light_48.png"
-        alt=""
-        width="32"
-        height="32"
-      />
-      <span class="pt-serif-bold">John Marlett</span>
-    </a>
-    <ul class="flex items-center gap-1 text-base sm:text-lg">
+    <app-quote-ticker />
+    <ul class="flex shrink-0 items-center gap-[clamp(1rem,3vw,2rem)] whitespace-nowrap">
       <li>
         <a
           routerLink="/"
-          routerLinkActive="text-white"
+          routerLinkActive="is-active"
+          ariaCurrentWhenActive="page"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="rounded-full px-3 py-2 text-white/65 transition hover:text-white"
+          class="nav-link label"
+          >Index</a
         >
-          Home
-        </a>
       </li>
       <li>
         <a
           routerLink="/lab"
-          routerLinkActive="text-white"
-          class="rounded-full px-3 py-2 text-white/65 transition hover:text-white"
+          routerLinkActive="is-active"
+          ariaCurrentWhenActive="page"
+          class="nav-link label"
+          >Lab</a
         >
-          Lab
-        </a>
+      </li>
+      <li>
+        <a
+          href="https://johnmarlett.substack.com/"
+          target="_blank"
+          rel="noreferrer"
+          class="nav-link label"
+          >Writing<span aria-hidden="true"> ↗</span></a
+        >
       </li>
     </ul>
   </nav>
 </header>
 
-<main id="main-content">
+<main id="main-content" class="flex-1">
   <router-outlet />
 </main>
+
+<footer
+  class="flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-line px-(--gutter) py-6"
+>
+  <span class="label text-marble-faint">© {{ year }} John Marlett</span>
+  <div class="flex items-center gap-5">
+    <span class="label text-marble-faint">36.60° N · 121.89° W</span>
+    <button
+      type="button"
+      popovertarget="credits"
+      class="display grid size-6 place-items-center border border-line-strong text-base leading-none italic text-marble-dim transition-colors hover:border-marble hover:text-marble"
+      aria-label="About this site and credits"
+    >
+      i
+    </button>
+  </div>
+</footer>
+
+<div
+  id="credits"
+  popover
+  class="credits m-0 w-[min(22rem,calc(100vw-2rem))] border border-line-strong bg-void-raised p-5 text-left text-marble-dim"
+>
+  <p class="label text-marble-faint">Credits</p>
+  <ul class="mt-4 space-y-3 text-sm">
+    <li>
+      Photo by
+      <a
+        class="link"
+        href="https://unsplash.com/@ckollias?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        target="_blank"
+        rel="noreferrer"
+        >Constantinos Kollias</a
+      >
+      on
+      <a
+        class="link"
+        href="https://unsplash.com/photos/acropolis-of-athens-at-golden-hour-yqBvJJ8jGBQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        target="_blank"
+        rel="noreferrer"
+        >Unsplash</a
+      >
+    </li>
+  </ul>
+  <button
+    type="button"
+    popovertarget="credits"
+    popovertargetaction="hide"
+    class="label mt-5 py-1 text-marble-faint transition-colors hover:text-marble"
+  >
+    Close
+  </button>
+</div>

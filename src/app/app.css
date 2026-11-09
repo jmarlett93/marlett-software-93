@@ -1,4 +1,41 @@
 :host {
-  display: block;
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+/* routerLinkActive toggles a class, so state styling lives here. */
+.nav-link {
+  position: relative;
+  display: inline-block;
+  padding-block: 0.5rem;
+  color: var(--marble-faint);
+  transition: color 160ms ease;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--marble);
+}
+
+/* Credits popover: pinned above the footer's info button, bottom-right. */
+.credits {
+  position: fixed;
+  inset: auto var(--gutter) 4.5rem auto;
+}
+
+.credits::backdrop {
+  background: transparent;
+}
+
+/* Active route: a single phosphor pixel under the label. */
+.nav-link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0.15rem;
+  width: 3px;
+  height: 3px;
+  background: var(--phosphor);
+  translate: -50% 0;
 }

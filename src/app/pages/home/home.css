@@ -1,3 +1,12 @@
 :host {
   display: block;
 }
+
+/* Faint scanlines over the statue: phosphor on marble. */
+.statue::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(6 6 7 / 0.35) 2px 3px);
+}

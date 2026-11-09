@@ -1,79 +1,80 @@
 <div class="sailing">
-  <div class="sailing__toolbar">
-    <label class="sailing__station">
-      <span class="sailing__station-label">Station</span>
-      <select
-        class="sailing__station-select"
-        [value]="selectedStationId()"
-        (change)="onWindStationChange($event)"
-        aria-label="NOAA weather station"
-      >
-        @for (station of windStations; track station.id) {
-          <option [value]="station.id">{{ station.label }}</option>
-        }
-      </select>
-    </label>
+  <div class="sailing__panel">
+    <div class="sailing__controls">
+      <label class="sailing__control">
+        <span class="sailing__step"><b>1</b> · Pick the wind</span>
+        <select
+          class="sailing__station-select"
+          [value]="selectedStationId()"
+          (change)="onWindStationChange($event)"
+          aria-label="NOAA weather station"
+        >
+          @for (station of windStations; track station.id) {
+            <option [value]="station.id">{{ station.label }}</option>
+          }
+        </select>
+      </label>
 
-    <div class="sailing__helm-block">
-      <div class="sailing__helm" role="group" aria-label="Helm mode">
-        <button
-          type="button"
-          class="sailing__helm-btn"
-          [class.is-active]="helmMode() === 'auto'"
-          [attr.aria-pressed]="helmMode() === 'auto'"
-          (click)="setHelmMode('auto')"
-        >
-          Auto
-        </button>
-        <button
-          type="button"
-          class="sailing__helm-btn"
-          [class.is-active]="helmMode() === 'manual'"
-          [attr.aria-pressed]="helmMode() === 'manual'"
-          (click)="setHelmMode('manual')"
-        >
-          Manual
-        </button>
+      <div class="sailing__control">
+        <span class="sailing__step" id="helm-label"><b>2</b> · Choose who steers</span>
+        <div class="sailing__helm" role="group" aria-labelledby="helm-label">
+          <button
+            type="button"
+            class="sailing__helm-btn"
+            [class.is-active]="helmMode() === 'auto'"
+            [attr.aria-pressed]="helmMode() === 'auto'"
+            (click)="setHelmMode('auto')"
+          >
+            Autopilot
+          </button>
+          <button
+            type="button"
+            class="sailing__helm-btn"
+            [class.is-active]="helmMode() === 'manual'"
+            [attr.aria-pressed]="helmMode() === 'manual'"
+            (click)="setHelmMode('manual')"
+          >
+            You
+          </button>
+        </div>
       </div>
-      <p class="sailing__helm-hint">
-        @if (helmMode() === 'manual') {
-          A / D rotate the boat
+    </div>
+
+    <dl class="sailing__readout">
+      <div>
+        <dt>Wind</dt>
+        @for (w of [windReadout()]; track w) {
+          <dd class="flash">{{ w }}</dd>
+        }
+      </div>
+      <div>
+        <dt>Boat speed</dt>
+        <dd>
+          @if (boat(); as b) {
+            {{ b.speedKnots | number: '1.1-1' }} kn
+          } @else {
+            —
+          }
+        </dd>
+      </div>
+      <div>
+        <dt>Steering</dt>
+        @for (m of [helmMode()]; track m) {
+          <dd class="flash">{{ m === 'manual' ? 'You' : 'Autopilot' }}</dd>
+        }
+      </div>
+    </dl>
+
+    @for (m of [helmMode()]; track m) {
+      <p class="sailing__hint flash">
+        @if (m === 'manual') {
+          <b>3</b> · Hold <kbd>A</kbd> to turn left, <kbd>D</kbd> to turn right
         } @else {
-          Autopilot steering · switch to Manual and use the A and D keys to rotate the boat
+          <b>3</b> · Watch it race, or switch to <em>You</em> to take the helm
         }
       </p>
-    </div>
+    }
   </div>
-
-  <dl class="sailing__stats sailing__stats--primary">
-    <div>
-      <dt>Wind</dt>
-      <dd>
-        @if (latestSample(); as sample) {
-          {{ sample.knots | number: '1.0-1' }} kn
-          @if (usingDirectionFallback()) {
-            · 0° N
-          } @else if (sample.degrees !== null) {
-            · {{ sample.degrees }}°
-          }
-        } @else if (usingDirectionFallback()) {
-          0° N
-        } @else {
-          —
-        }
-      </dd>
-    </div>
-    <div>
-      <dt>Boat speed</dt>
-      <dd>
-        @if (boat(); as b) {
-          {{ b.speedKnots | number: '1.0-1' }} kn
-        } @else {
-          —
-        }
-      </dd>
-    </div>
-  </dl>
 
   @if (errorMessage()) {
     <p class="sailing__error" role="status">{{ errorMessage() }}</p>
@@ -112,11 +113,11 @@
 
       <p class="sailing__details-lead">
         Boat speed comes from the official Melges 24 
-        <strong class="font-medium text-white/85">polar</strong>
+        <strong class="font-normal text-marble">polar</strong>
         — a table of boat speed in knots for each wind speed and wind angle. Polars encode how
         fast a boat can go close-hauled, reaching, and running; the physics engine moves the boat according to these values,
         and the auto pilot uses them to plan tacks and mark approaches. Browse
-        published polars at for more information.
+        published polars at
         <a
           class="sailing__details-link"
           href="https://www.boatpolars.com/"

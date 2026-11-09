@@ -1,265 +1,204 @@
-<div class="lab">
-  <div class="lab-intro px-6 pb-8 pt-10 sm:px-12">
-    <header class="animate-fade-rise max-w-3xl">
-      <p class="mb-3 flex items-center gap-2 text-xs tracking-[0.28em] text-white/60 uppercase">
-        <mat-icon class="text-base! text-(--accent)" aria-hidden="true">science</mat-icon>
-        Lab
-      </p>
-      <h1 class="text-4xl font-semibold tracking-tight text-white sm:text-6xl">
-        Pushing the browser to its limits.
-      </h1>
-      <p class="mt-5 max-w-2xl text-base text-(--fog) sm:text-lg">
-        Here we showcase the power of the web browser with animation, WEBGL, webworkers, physics simulation, 
-        and even an AI helmsman. More to come!
-      </p>
-    </header>
+<!-- Compact intro: one title line, one row of section links. -->
+<header class="mx-auto flex max-w-[56rem] flex-col items-center gap-3 px-(--gutter) pt-10 pb-8 text-center">
+  <h1 class="display text-[clamp(2rem,4vw,2.75rem)] leading-none text-marble">
+    Lab <span class="text-marble-faint italic">· The browser can do things</span>
+  </h1>
+  <nav aria-label="Lab sections">
+    <ol class="flex flex-wrap justify-center gap-x-8">
+      @for (section of sections; track section.id; let i = $index) {
+        <li>
+          <a
+            class="label inline-flex gap-3 py-2 text-marble-faint transition-colors hover:text-marble"
+            routerLink="/lab"
+            [fragment]="section.id"
+          >
+            <span class="text-phosphor">{{ numerals[i] }}</span>{{ section.label }}
+          </a>
+        </li>
+      }
+    </ol>
+  </nav>
+</header>
 
-    <nav class="mt-8" aria-label="Lab sections">
-      <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-        @for (section of sections; track section.id) {
-          <li>
-            <a
-              class="inline-flex items-center gap-1.5 text-white/70 transition hover:text-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
-              routerLink="/lab"
-              [fragment]="section.id"
-            >
-              <mat-icon class="text-base!" aria-hidden="true">{{ section.icon }}</mat-icon>
-              <span
-                class="underline decoration-white/25 underline-offset-4 hover:decoration-(--accent)"
-              >
-                {{ section.label }}
-              </span>
-            </a>
-          </li>
-        }
-      </ul>
-    </nav>
-  </div>
-
-  <section
-    id="sailing"
-    class="lab-section lab-section--sailing scroll-mt-20 border-t border-(--line) px-6 py-16 sm:px-12 sm:py-20"
-    aria-labelledby="sailing-heading"
-  >
-    <p class="mb-3 flex items-center gap-2 text-xs tracking-[0.28em] text-white/60 uppercase">
-      <mat-icon class="text-base! text-(--accent)" aria-hidden="true"
-        >sailing</mat-icon
-      >
-      Section 01
-    </p>
-    <h2 id="sailing-heading" class="text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+<!-- I — Sailing -->
+<section
+  id="sailing"
+  class="relative isolate scroll-mt-(--header-height) overflow-hidden border-t border-line"
+  aria-labelledby="sailing-heading"
+>
+  <!-- Ocean swell background; edges fade into the void. -->
+  <iframe
+    class="pointer-events-none absolute inset-0 -z-10 h-full w-full border-0 mask-[linear-gradient(180deg,transparent_0%,#000_18%,#000_82%,transparent_100%)]"
+    src="assets/art/ocean-dots.html"
+    title="Ocean swell"
+    tabindex="-1"
+    aria-hidden="true"
+  ></iframe>
+  <!-- Scrim behind the heading so the intro copy stays legible over the swell. -->
+  <div
+    class="absolute inset-x-0 top-0 -z-10 h-[30rem] bg-[radial-gradient(ellipse_42%_60%_at_50%_30%,var(--void)_0%,transparent_100%)]"
+    aria-hidden="true"
+  ></div>
+  <div class="mx-auto flex max-w-[48rem] flex-col items-center px-(--gutter) pt-14 pb-[clamp(4rem,9vw,6rem)] text-center">
+    <p class="label text-marble-faint">I — Sailing</p>
+    <h2 id="sailing-heading" class="display mt-4 text-[clamp(2.25rem,5vw,3.75rem)] text-marble">
       Sailing simulator
     </h2>
-    <p class="mt-5 max-w-2xl text-base text-(--fog) sm:text-lg">
-      Sailing is a complex physics problem. This simulation uses sailing polar data from the popular Melges 24 class,
-      and a live API of wind direction and velocity from some of my favorite places to
-      sail. I coded an AI auto pilot to plot a course and navigate around racing bouys. You can take over by
-      switching to manual mode.
+    <p class="mt-5 max-w-[50ch] text-marble-dim">
+      A Melges 24 racing around the bouys with live wind data from NOAA weather bouys. Autopilot plots an optimal course
+      based on windspeed and direction. Monterey Bay and San Francisco are iconic yachting spots in Northern California.
     </p>
-    <div class="mt-10">
+
+    <div class="mt-12 w-full text-left">
       <app-sailing-simulator />
     </div>
-  </section>
+  </div>
+</section>
 
-  <section
-    id="web-workers"
-    class="lab-section lab-section--workers scroll-mt-20 border-t border-(--line) px-6 py-16 sm:px-12 sm:py-20"
-    aria-labelledby="web-workers-heading"
-  >
-    <header class="animate-fade-rise max-w-3xl">
-      <p class="mb-3 flex items-center gap-2 text-xs tracking-[0.28em] text-white/60 uppercase">
-        <mat-icon class="text-base! text-(--accent)" aria-hidden="true">memory</mat-icon>
-        Section 02
-      </p>
-      <h2
-        id="web-workers-heading"
-        class="text-3xl font-semibold tracking-tight text-white sm:text-5xl"
-      >
-        Web Worker Threads
-      </h2>
-      <p class="mt-5 max-w-2xl text-base text-(--fog) sm:text-lg">
-        We will run an intensive compute function. Experiment A runs on the main thread; experiment B
-        runs in a web worker. Since javascript is single thread, the main thread run will block the UI controls,
-         while the worker run will not.
-      </p>
-    </header>
+<!-- II — Threads -->
+<section
+  id="web-workers"
+  class="scroll-mt-(--header-height) border-t border-line"
+  aria-labelledby="web-workers-heading"
+>
+  <div class="mx-auto flex max-w-[40rem] flex-col items-center px-(--gutter) py-[clamp(4rem,9vw,6rem)] text-center">
+    <p class="label text-marble-faint">II — Threads</p>
+    <h2
+      id="web-workers-heading"
+      class="display mt-4 text-[clamp(2.25rem,5vw,3.75rem)] text-marble"
+    >
+      Worker threads
+    </h2>
+    <p class="mt-5 max-w-[46ch] text-marble-dim">
+      I failed an interview once because I didn't propose a web worker as the optimization solution.
+      Anyway, if you need to run a heavy computation, single threaded Javascript will block I/O unless you delegate the work to a seperate
+      thread. Run a heavy prime number count, and see how web workers keep your main thread from freezing.
+    </p>
 
-    <div class="animate-fade-rise-delay mt-12" aria-labelledby="responsiveness-heading">
-      <div class="border-b border-(--line) pb-4">
-        <h3 id="responsiveness-heading" class="text-lg font-medium text-white">Responsiveness check</h3>
-        <p class="mt-1 text-sm text-white/55">
-          Notice how the clicker cannot increment during experiment A — it queues until the end once
-          the thread is clear. In experiment B, the clicker is not blocked.
-        </p>
-      </div>
-
-      <div class="mt-6 flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          class="inline-flex items-center gap-2 border border-(--line) bg-white/5 px-4 py-2 text-sm text-white transition hover:border-white/40 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
-          (click)="registerClick()"
-        >
-          <mat-icon class="text-base!" aria-hidden="true">touch_app</mat-icon>
-          Clicker
-          <span class="tabular-nums text-(--accent)">{{ clickerCount() }}</span>
-        </button>
-      </div>
-    </div>
-
-    <div class="mt-14" aria-labelledby="comparison-heading">
-      <h3 id="comparison-heading" class="sr-only">Experiment A versus Experiment B</h3>
-
-      <div class="grid gap-10 lg:grid-cols-2 lg:gap-14">
-        <article>
-          <div class="mb-5 flex items-center gap-3">
-            <mat-icon class="text-(--warn)" aria-hidden="true">warning</mat-icon>
-            <div>
-              <h4 class="text-xl font-medium text-white">Experiment A · Main thread</h4>
-              <p class="text-sm text-white/50">Blocks painting, clicks, and scroll</p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            class="inline-flex w-full items-center justify-center gap-2 bg-(--warn) px-5 py-3 text-sm font-semibold text-(--ink) transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--warn)"
-            (click)="runMainThread()"
-          >
-            @if (mainBusy()) {
-              <mat-icon class="spin-soft text-lg!" aria-hidden="true">autorenew</mat-icon>
-              Calculating…
-            } @else {
-              <mat-icon class="text-lg!" aria-hidden="true">play_arrow</mat-icon>
-              Run experiment A
-            }
-          </button>
-
-          <dl class="mt-6 grid grid-cols-2 gap-4 border-t border-(--line) pt-5">
-            <div>
-              <dt class="text-xs tracking-wide text-white/45 uppercase">Result</dt>
-              <dd class="mt-1 text-3xl font-semibold tabular-nums text-white">
-                {{ mainCount() === null ? '—' : (mainCount() | number) }}
-              </dd>
-            </div>
-            <div>
-              <dt class="text-xs tracking-wide text-white/45 uppercase">Elapsed</dt>
-              <dd class="mt-1 text-3xl font-semibold tabular-nums text-white">
-                @if (mainElapsedMs() === null) {
-                  —
-                } @else {
-                  {{ mainElapsedMs() | number }}
-                  <span class="text-base font-normal text-white/45">ms</span>
-                }
-              </dd>
-            </div>
-          </dl>
-
-          @if (mainCount() !== null) {
+    <!-- The instrument -->
+    <div class="mt-12 w-full border border-line">
+      <!-- Step 1: run -->
+      <div class="border-b border-line p-5">
+        <p class="label text-marble-faint"><span class="text-phosphor">1</span> · Start a run</p>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          @for (exp of experiments(); track exp.id) {
             <button
               type="button"
-              class="mt-4 text-sm text-white/55 underline-offset-4 hover:text-white hover:underline"
-              (click)="clearMain()"
+              class="label flex items-center justify-center gap-2 border px-3 py-3 text-marble transition-colors disabled:cursor-wait"
+              [class]="exp.buttonTone"
+              [disabled]="exp.busy"
+              (click)="exp.run()"
             >
-              Clear A
+              @if (exp.busy) {
+                <span class="spin-soft inline-block" aria-hidden="true">◐</span> Running
+              } @else {
+                <span [class]="exp.tone">{{ exp.id }}</span> {{ exp.title }}
+              }
             </button>
           }
-        </article>
-
-        <article>
-          <div class="mb-5 flex items-center gap-3">
-            <mat-icon class="text-(--accent)" aria-hidden="true">bolt</mat-icon>
-            <div>
-              <h4 class="text-xl font-medium text-white">Experiment B · Web Worker</h4>
-              <p class="text-sm text-white/50">Same work, separate thread</p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            class="inline-flex w-full items-center justify-center gap-2 bg-(--accent) px-5 py-3 text-sm font-semibold text-(--ink) transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent) disabled:cursor-not-allowed disabled:opacity-50"
-            (click)="runWebWorker()"
-            [disabled]="workerBusy()"
-          >
-            @if (workerBusy()) {
-              <mat-icon class="spin-soft text-lg!" aria-hidden="true">autorenew</mat-icon>
-              Worker running…
-            } @else {
-              <mat-icon class="text-lg!" aria-hidden="true">play_arrow</mat-icon>
-              Run experiment B
-            }
-          </button>
-
-          <dl class="mt-6 grid grid-cols-2 gap-4 border-t border-(--line) pt-5">
-            <div>
-              <dt class="text-xs tracking-wide text-white/45 uppercase">Result</dt>
-              <dd class="mt-1 text-3xl font-semibold tabular-nums text-white">
-                {{ workerCount() === null ? '—' : (workerCount() | number) }}
-              </dd>
-            </div>
-            <div>
-              <dt class="text-xs tracking-wide text-white/45 uppercase">Elapsed</dt>
-              <dd class="mt-1 text-3xl font-semibold tabular-nums text-white">
-                @if (workerElapsedMs() === null) {
-                  —
-                } @else {
-                  {{ workerElapsedMs() | number }}
-                  <span class="text-base font-normal text-white/45">ms</span>
-                }
-              </dd>
-            </div>
-          </dl>
-
-          @if (workerCount() !== null) {
-            <button
-              type="button"
-              class="mt-4 text-sm text-white/55 underline-offset-4 hover:text-white hover:underline"
-              (click)="clearWorker()"
-            >
-              Clear B
-            </button>
-          }
-        </article>
-      </div>
-    </div>
-
-    <details class="lab-details mt-14">
-      <summary class="lab-details__summary">How the prime calculation works</summary>
-      <div class="lab-details__body">
-        <p class="text-sm text-(--fog)">
-          Both experiments count primes in a range of {{ range | number }}. Experiment A runs
-          <code class="text-white/80">countPrimesInRange</code> on the main thread; experiment B
-          posts the same work to a
-          <a
-            class="text-(--accent) underline decoration-(--accent)/40 underline-offset-4 hover:decoration-(--accent)"
-            [href]="mdnWorkersUrl"
-            target="_blank"
-            rel="noreferrer"
-            >Web Worker</a
-          >.
-        </p>
-
-        <div class="mt-8 grid items-center gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <ol class="space-y-3 text-sm text-(--fog)">
-            <li class="flex gap-3">
-              <span class="text-(--accent)">01</span>
-              Clicker updates propagate under experiment B while the worker calculates.
-            </li>
-            <li class="flex gap-3">
-              <span class="text-(--accent)">02</span>
-              Experiment A blocks the main thread, so clicker updates are stuck in queue until the loop finishes.
-            </li>
-          </ol>
-          <figure class="justify-self-center md:justify-self-end">
-            <img
-              class="max-h-56 w-auto opacity-90"
-              src="assets/images/isPrime.PNG"
-              alt="isPrime function used by the prime-counting simulation"
-            />
-            <figcaption class="mt-3 text-center text-xs tracking-wide text-white/40 uppercase">
-              Costly check running in both experiments
-            </figcaption>
-          </figure>
         </div>
       </div>
+
+      <!-- Step 2: click -->
+      <div class="border-b border-line p-5">
+        <p class="label text-marble-faint">
+          <span class="text-phosphor">2</span> · While it runs, tap the clicker
+        </p>
+        <button
+          type="button"
+          class="mt-4 inline-flex items-baseline gap-4 border border-line-strong px-6 py-3 transition-colors hover:border-marble active:bg-marble/5"
+          (click)="registerClick()"
+          aria-label="Clicker"
+        >
+          <span class="label text-marble-dim">Clicks</span>
+          @for (n of [clickerCount()]; track n) {
+            <span class="flash font-mono text-3xl tabular-nums text-marble">{{ n }}</span>
+          }
+        </button>
+        <p class="mt-3 text-sm text-marble-faint">
+          During <span class="text-ember">A</span> the count freezes, then jumps.
+          During <span class="text-phosphor">B</span> it keeps up.
+        </p>
+      </div>
+
+      <!-- Step 3: compare -->
+      <div class="p-5">
+        <p class="label text-marble-faint"><span class="text-phosphor">3</span> · Compare</p>
+        <table class="mt-4 w-full text-left">
+          <thead>
+            <tr class="border-b border-line">
+              <th scope="col" class="label py-2 font-normal text-marble-faint">Run</th>
+              <th scope="col" class="label py-2 text-right font-normal text-marble-faint">Primes</th>
+              <th scope="col" class="label py-2 text-right font-normal text-marble-faint">Time</th>
+              <th scope="col" class="w-12"><span class="sr-only">Clear</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (exp of experiments(); track exp.id) {
+              <tr class="border-b border-line last:border-0" [style.--flash]="exp.flash">
+                <th scope="row" class="py-3 font-normal text-marble-dim">
+                  <span class="label mr-2" [class]="exp.tone">{{ exp.id }}</span>{{ exp.title }}
+                </th>
+                <td class="py-3 text-right tabular-nums text-marble">
+                  @for (v of [exp.count]; track v) {
+                    <span [class.flash]="v !== null">{{ v === null ? '—' : (v | number) }}</span>
+                  }
+                </td>
+                <td class="py-3 text-right tabular-nums text-marble">
+                  @for (v of [exp.elapsed]; track v) {
+                    <span [class.flash]="v !== null">
+                      {{ v === null ? '—' : (v | number) }}@if (v !== null) {<span class="text-marble-faint"> ms</span>}
+                    </span>
+                  }
+                </td>
+                <td class="py-3 text-right">
+                  @if (exp.count !== null) {
+                    <button
+                      type="button"
+                      class="label p-1 text-marble-faint transition-colors hover:text-marble"
+                      [attr.aria-label]="'Clear ' + exp.id"
+                      (click)="exp.clear()"
+                    >
+                      ×
+                    </button>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <details class="group mt-8 w-full border-y border-line text-left">
+      <summary
+        class="label flex cursor-pointer list-none items-center justify-between py-4 text-marble-dim transition-colors hover:text-marble [&::-webkit-details-marker]:hidden"
+      >
+        How it works
+        <span class="text-phosphor group-open:hidden" aria-hidden="true">+</span>
+        <span class="hidden text-phosphor group-open:inline" aria-hidden="true">−</span>
+      </summary>
+      <div class="grid gap-8 pb-8 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div class="prose-mono space-y-4 text-sm">
+          <p>
+            Both count primes below {{ range | number }}. A calls
+            <code>countPrimesInRange</code> directly; B posts the same work to a
+            <a class="link" [href]="mdnWorkersUrl" target="_blank" rel="noreferrer">Web Worker</a>.
+          </p>
+          <p>
+            JavaScript has one main thread. While A loops, clicks queue up and land all at once
+            when it finishes.
+          </p>
+        </div>
+        <figure class="justify-self-center">
+          <img
+            class="max-h-48 w-auto opacity-80 grayscale"
+            src="assets/images/isPrime.PNG"
+            alt="The isPrime function used by both experiments"
+          />
+          <figcaption class="label mt-3 text-center text-marble-faint">isPrime</figcaption>
+        </figure>
+      </div>
     </details>
-  </section>
-</div>
+  </div>
+</section>

@@ -1,7 +1,6 @@
 import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SailingSimulator } from '../../sailing-simulator/sailing-simulator';
 import { PRIME_RANGE, countPrimesInRange } from '../../workers/prime-count';
@@ -11,12 +10,24 @@ type LaneStatus = 'idle' | 'running' | 'done';
 type LabSection = {
   id: string;
   label: string;
-  icon: string;
+};
+
+type Experiment = {
+  id: 'A' | 'B';
+  title: string;
+  tone: string;
+  buttonTone: string;
+  flash: string;
+  busy: boolean;
+  count: number | null;
+  elapsed: number | null;
+  run: () => void;
+  clear: () => void;
 };
 
 @Component({
   selector: 'app-lab',
-  imports: [MatIconModule, DecimalPipe, RouterLink, SailingSimulator],
+  imports: [DecimalPipe, RouterLink, SailingSimulator],
   templateUrl: './lab.html',
   styleUrl: './lab.css',
 })
@@ -28,9 +39,11 @@ export class Lab {
     'https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API';
 
   readonly sections: readonly LabSection[] = [
-    { id: 'sailing', label: 'Sailing Sim', icon: 'sailing' },
-    { id: 'web-workers', label: 'Worker Threads', icon: 'memory' },
+    { id: 'sailing', label: 'Sailing' },
+    { id: 'web-workers', label: 'Threads' },
   ];
+
+  readonly numerals = ['I', 'II', 'III', 'IV', 'V'];
 
   readonly mainStatus = signal<LaneStatus>('idle');
   readonly workerStatus = signal<LaneStatus>('idle');
@@ -42,6 +55,33 @@ export class Lab {
 
   readonly mainBusy = computed(() => this.mainStatus() === 'running');
   readonly workerBusy = computed(() => this.workerStatus() === 'running');
+
+  readonly experiments = computed<Experiment[]>(() => [
+    {
+      id: 'A',
+      title: 'Main thread',
+            tone: 'text-ember',
+      buttonTone: 'border-ember/45 hover:border-ember hover:bg-ember/10',
+      flash: 'var(--ember)',
+      busy: this.mainBusy(),
+      count: this.mainCount(),
+      elapsed: this.mainElapsedMs(),
+      run: () => void this.runMainThread(),
+      clear: () => this.clearMain(),
+    },
+    {
+      id: 'B',
+      title: 'Web worker',
+            tone: 'text-phosphor',
+      buttonTone: 'border-phosphor/45 hover:border-phosphor hover:bg-phosphor/10',
+      flash: 'var(--phosphor)',
+      busy: this.workerBusy(),
+      count: this.workerCount(),
+      elapsed: this.workerElapsedMs(),
+      run: () => this.runWebWorker(),
+      clear: () => this.clearWorker(),
+    },
+  ]);
 
   private worker: Worker | null = null;
   private workerRunStartedAt = 0;

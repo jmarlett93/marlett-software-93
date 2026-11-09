@@ -1,90 +1,136 @@
-<section class="bg-[var(--ink)]">
-  <div class="relative">
-    <img
-      class="block h-auto w-full"
-      src="assets/images/milkyway.jpg"
-      alt="Milky Way over a mountain ridge"
-    />
-
+<!-- I. Hero: name in the open sky above an Acropolis horizon. -->
+<section
+  class="relative isolate grid min-h-[calc(100svh-var(--header-height))] content-start justify-items-center overflow-hidden px-(--gutter) pt-[clamp(5rem,20svh,11rem)] pb-24"
+  aria-labelledby="hero-name"
+>
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
     <div
-      class="absolute inset-x-0 bottom-0 flex flex-col items-start px-6 pb-10 pt-24 sm:px-12 sm:pb-14"
-    >
-      <h1
-        class="animate-fade-rise max-w-3xl text-4xl font-semibold tracking-tight text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)] sm:text-6xl"
-      >
-        Engineering Excellence
-      </h1>
-      <p
-        class="animate-fade-rise-delay mt-4 max-w-xl text-base text-white/90 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:text-lg"
-      >
-        Welcome to my professional website. Get in contact, check out what I'm up to, or stay for
-        some fun and games in the browser lab.
-      </p>
-      <div class="animate-fade-rise-delay mt-7 flex flex-wrap gap-3">
-        <a
-          routerLink="/lab"
-          class="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-        >
-          Open the lab
-          <mat-icon class="!text-lg" aria-hidden="true">arrow_forward</mat-icon>
-        </a>
-      </div>
-    </div>
+      class="pixel-field absolute inset-0 mask-[radial-gradient(ellipse_60%_55%_at_50%_40%,#000_0%,transparent_100%)]"
+    ></div>
+    <img
+      class="horizon absolute bottom-0 left-1/2 h-[max(46svh,40.4vw)] w-auto max-w-none -translate-x-1/2 opacity-45 select-none"
+      src="assets/art/acropolis-dots.webp"
+      alt=""
+      width="2880"
+      height="1163"
+      decoding="async"
+      fetchpriority="high"
+    />
+    <!-- Scrim: keeps the name legible where it crosses the rock face. -->
+    <div
+      class="absolute inset-0 bg-[radial-gradient(ellipse_40%_28%_at_50%_42%,var(--void)_0%,transparent_100%)]"
+    ></div>
   </div>
-</section>
 
-<section class="bg-[var(--ink)]" aria-labelledby="resume-heading">
-  <div class="px-6 py-16 sm:px-12 sm:py-20">
-    <p class="mb-3 flex items-center gap-2 text-xs tracking-[0.28em] text-white/60 uppercase">
-      <mat-icon class="!text-base text-[var(--accent)]" aria-hidden="true">person</mat-icon>
-      Resume
-    </p>
-    <h2
-      id="resume-heading"
-      class="pt-serif-bold max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl"
-    >
-      John Marlett
-    </h2>
-    <p class="mt-4 max-w-2xl text-sm text-[var(--fog)] sm:text-base">
-      I am a professional software builder and team leader, interested in building great culture,
-      elegant systems, and cutting edge sofware technology. I am currently building AI agents and full stack products 
-      with Node, Langraph, and AWS to transform the real estate industry with
-      <a
-        class="text-white/70 underline decoration-white/25 underline-offset-4 transition hover:text-(--accent) hover:decoration-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
-        href="https://crexi.com"
-        target="_blank"
-        rel="noreferrer"
-        >Crexi</a
-      >.
-      In 2024, I founded
-      <a
-        class="text-white/70 underline decoration-white/25 underline-offset-4 transition hover:text-(--accent) hover:decoration-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
-        href="https://qstr.cursus.tools/login"
-        target="_blank"
-        rel="noreferrer"
-        >Quaestor</a
-      >,
-      an AI operations tool for small business. Outside of work, I enjoy a dry martini and rugby.
-    </p>
+  <div class="animate-fade-in flex flex-col items-center text-center">
+    <h1 id="hero-name" class="display text-[clamp(2.75rem,8vw,6.5rem)] text-marble">
+      Engineering, art, excellence.
+    </h1>
+    <p class="display mt-[clamp(1.75rem,3.5vw,2.75rem)] text-[clamp(1.5rem,3vw,2.25rem)] italic text-marble-dim">John Marlett</p>
+    <p class="label mt-4 text-marble-dim">Elegant systems, beautiful software, stellar teams</p>
 
-    <ul class="mt-6 flex flex-wrap items-center gap-5" aria-label="Profiles and writing">
-      @for (link of socialLinks; track link.href) {
+    <ul class="mt-10 flex flex-wrap justify-center gap-x-7 gap-y-1" aria-label="Elsewhere">
+      @for (link of links; track link.href) {
         <li>
           <a
-            class="inline-flex items-center gap-1.5 text-sm text-white/90 transition hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            class="label inline-block py-2 text-marble-dim transition-colors hover:text-phosphor"
             [href]="link.href"
             target="_blank"
             rel="noreferrer"
           >
-            <mat-icon class="!text-base" aria-hidden="true">{{ link.icon }}</mat-icon>
-            <span
-              class="underline decoration-white/30 underline-offset-4 hover:decoration-[var(--accent)]"
-            >
-              {{ link.label }}
-            </span>
+            {{ link.label }}<span aria-hidden="true"> ↗</span>
           </a>
         </li>
       }
     </ul>
+  </div>
+
+  <a
+    class="label absolute bottom-6 left-1/2 -translate-x-1/2 p-2 text-marble-dim transition-colors hover:text-marble"
+    href="#about"
+    (click)="scrollToAbout($event)"
+  >
+    <span aria-hidden="true">↓</span> About
+  </a>
+</section>
+
+<!-- II. About: the Venus on the left, the ledger on the right. -->
+<section
+  id="about"
+  class="mx-auto grid max-w-[70rem] scroll-mt-(--header-height) items-center gap-x-[clamp(3rem,8vw,7rem)] gap-y-14 px-(--gutter) py-[clamp(5rem,14vw,9rem)] md:grid-cols-[auto_minmax(0,1fr)]"
+  aria-labelledby="about-heading"
+>
+  <figure class="statue relative justify-self-center">
+    <img
+      class="block h-[clamp(16rem,52vw,22rem)] w-auto opacity-95 [image-rendering:pixelated] md:h-[clamp(26rem,62svh,36rem)]"
+      src="assets/images/de_milo_bitmap.png"
+      alt="The Venus de Milo rendered as a dithered bitmap"
+      width="160"
+      height="373"
+      loading="lazy"
+    />
+  </figure>
+
+  <div>
+    <p class="label text-marble-faint">I — About</p>
+    <h2
+      id="about-heading"
+      class="display mt-5 text-[clamp(2.25rem,5.5vw,3.5rem)] leading-[1.05] text-marble"
+    >
+      I build software and winning team culture.
+    </h2>
+
+    <dl class="mt-14 border-t border-line">
+      @for (entry of ledger; track entry.term) {
+        <div
+          class="grid gap-x-6 gap-y-1 border-b border-line py-[1.1rem] min-[541px]:grid-cols-[8rem_1fr]"
+        >
+          <dt class="label pt-1 text-marble-faint">{{ entry.term }}</dt>
+          <dd class="text-marble-dim">
+            @if (entry.href) {
+              <a class="link" [href]="entry.href" target="_blank" rel="noreferrer">{{
+                entry.linkText
+              }}</a>
+            }
+            {{ entry.text }}
+          </dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
+<!-- III. Caryatids band: animated dust porch, masked on the left so the copy sits on clean void. -->
+<section
+  class="relative isolate flex flex-col overflow-hidden border-y border-line"
+  aria-labelledby="lab-teaser"
+>
+  <!-- Desktop: full-bleed behind the copy. Mobile: its own 4:3 frame below the copy. -->
+  <iframe
+    class="pointer-events-none order-2 aspect-[4/3] w-full border-0 mask-[linear-gradient(180deg,transparent_0%,#000_25%)] md:absolute md:inset-0 md:-z-10 md:aspect-auto md:h-full md:mask-[linear-gradient(90deg,transparent_8%,#000_42%)]"
+    src="assets/art/caryatids-dust.html"
+    title="Caryatids dissolving into dust"
+    loading="lazy"
+    tabindex="-1"
+    aria-hidden="true"
+  ></iframe>
+  <div
+    class="mx-auto flex w-full max-w-[100rem] flex-col justify-center px-(--gutter) pt-16 pb-4 md:aspect-[16/9] md:max-h-[90svh] md:min-h-[34rem] md:py-0"
+  >
+    <div class="max-w-[22rem]">
+      <p class="label text-marble-faint">II — Lab</p>
+      <h2
+        id="lab-teaser"
+        class="display mt-5 text-[clamp(2.25rem,4.5vw,3.5rem)] leading-[1.05] text-marble"
+      >
+        Exploring the fringe of browser tech
+      </h2>
+      <a
+        routerLink="/lab"
+        class="label mt-8 inline-flex items-center gap-3 border border-line-strong bg-void/60 px-5 py-3 text-marble transition-colors hover:border-phosphor hover:text-phosphor"
+      >
+        Enter the lab <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
 </section>

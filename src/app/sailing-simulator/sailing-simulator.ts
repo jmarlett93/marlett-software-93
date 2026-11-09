@@ -3,12 +3,12 @@ import {
   DestroyRef,
   ElementRef,
   afterNextRender,
+  computed,
   inject,
   signal,
   viewChild,
 } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { Application, Container, Graphics, Text } from 'pixi.js';
 import { Subscription } from 'rxjs';
 import {
@@ -125,7 +125,7 @@ const windArrowColor = (knots: number): number => {
 
 @Component({
   selector: 'app-sailing-simulator',
-  imports: [MatIconModule, DecimalPipe],
+  imports: [DecimalPipe],
   templateUrl: './sailing-simulator.html',
   styleUrl: './sailing-simulator.css',
   host: {
@@ -149,6 +149,19 @@ export class SailingSimulator {
   readonly lastPuff = signal<WindPuff | null>(null);
   readonly boat = signal<SailboatState | null>(null);
   readonly helmMode = signal<HelmMode>('auto');
+  /** Wind as one string so the template can flash it only when it actually changes. */
+  readonly windReadout = computed(() => {
+    const sample = this.latestSample();
+    if (this.usingDirectionFallback()) {
+      return sample ? `${sample.knots.toFixed(1)} kn · 0° N` : '0° N';
+    }
+    if (!sample) {
+      return '—';
+    }
+    return sample.degrees !== null
+      ? `${sample.knots.toFixed(1)} kn · ${sample.degrees}°`
+      : `${sample.knots.toFixed(1)} kn`;
+  });
   /** Fleet UI hidden for now — solo only. */
   readonly fleetMode = signal<FleetMode>('solo');
   readonly tackStrategyOptions = TACK_STRATEGY_OPTIONS;
@@ -290,7 +303,7 @@ export class SailingSimulator {
       await app.init({
         width: Math.max(Math.floor(rect.width), 320),
         height: Math.max(Math.floor(rect.height), 240),
-        background: '#0a2a38',
+        background: '#0d1a1f',
         antialias: true,
         resolution: Math.min(window.devicePixelRatio || 1, 2),
         autoDensity: true,
@@ -474,14 +487,14 @@ export class SailingSimulator {
       const disc = new Graphics()
         .circle(0, 0, Math.max(8, course.markRadiusPx * 0.55))
         .fill({ color: buoy.index === 1 ? 0xe8a23a : 0x7ee0d4, alpha: 0.95 })
-        .stroke({ width: 2, color: 0xeef4f8, alpha: 0.7 });
+        .stroke({ width: 2, color: 0xe8e3d8, alpha: 0.7 });
 
       const label = new Text({
         text: String(buoy.index),
         style: {
-          fontFamily: 'Sora, sans-serif',
+          fontFamily: '"IBM Plex Mono", monospace',
           fontSize: 11,
-          fill: 0x071018,
+          fill: 0x060607,
           fontWeight: '700',
         },
       });
@@ -490,9 +503,9 @@ export class SailingSimulator {
       const caption = new Text({
         text: buoy.role,
         style: {
-          fontFamily: 'Sora, sans-serif',
+          fontFamily: '"IBM Plex Mono", monospace',
           fontSize: 10,
-          fill: 0xeef4f8,
+          fill: 0xe8e3d8,
         },
       });
       caption.anchor.set(0.5, -1.6);
@@ -501,7 +514,7 @@ export class SailingSimulator {
       const leaveLabel = new Text({
         text: `leave ${leaveTo} · ${sense}`,
         style: {
-          fontFamily: 'Sora, sans-serif',
+          fontFamily: '"IBM Plex Mono", monospace',
           fontSize: 10,
           fill: leaveTo === 'port' ? 0xffb4a8 : 0xa8c8ff,
           fontWeight: '600',
@@ -540,9 +553,9 @@ export class SailingSimulator {
       const label = new Text({
         text: `${boat.spec.shortName} 0.0`,
         style: {
-          fontFamily: 'Sora, sans-serif',
+          fontFamily: '"IBM Plex Mono", monospace',
           fontSize: 11,
-          fill: 0xeef4f8,
+          fill: 0xe8e3d8,
         },
       });
       label.anchor.set(0.5, 1.8);
@@ -571,7 +584,7 @@ export class SailingSimulator {
     this.horizon.clear();
     this.horizon
       .rect(0, 0, this.app.screen.width, this.app.screen.height)
-      .fill({ color: 0x0a2a38 });
+      .fill({ color: 0x0d1a1f });
   }
 
   private spawnArrow(puff: WindPuff): void {
@@ -608,9 +621,9 @@ export class SailingSimulator {
     const label = new Text({
       text: `${puff.knots.toFixed(1)} kn`,
       style: {
-        fontFamily: 'Sora, sans-serif',
+        fontFamily: '"IBM Plex Mono", monospace',
         fontSize: 11,
-        fill: 0xeef4f8,
+        fill: 0xe8e3d8,
       },
     });
     label.anchor.set(0.5, 1.4);
@@ -1007,7 +1020,7 @@ export class SailingSimulator {
       const entryTag = new Text({
         text: 'Entry',
         style: {
-          fontFamily: 'Sora, sans-serif',
+          fontFamily: '"IBM Plex Mono", monospace',
           fontSize: 11,
           fill: color,
           fontWeight: '800',
@@ -1047,7 +1060,7 @@ export class SailingSimulator {
       const exitTag = new Text({
         text: locked ? 'Exit' : 'Exit*',
         style: {
-          fontFamily: 'Sora, sans-serif',
+          fontFamily: '"IBM Plex Mono", monospace',
           fontSize: 11,
           fill: color,
           fontWeight: '800',
@@ -1072,13 +1085,13 @@ export class SailingSimulator {
           this.aimDebug
             .circle(point.x, point.y, 7)
             .fill({ color, alpha: 0.94 })
-            .stroke({ width: 1.4, color: 0x071018, alpha: 0.5 });
+            .stroke({ width: 1.4, color: 0x060607, alpha: 0.5 });
           const tag = new Text({
             text: point.label ?? 'T',
             style: {
-              fontFamily: 'Sora, sans-serif',
+              fontFamily: '"IBM Plex Mono", monospace',
               fontSize: 10,
-              fill: 0x071018,
+              fill: 0x060607,
               fontWeight: '800',
             },
           });
@@ -1089,7 +1102,7 @@ export class SailingSimulator {
           const tag = new Text({
             text: point.label,
             style: {
-              fontFamily: 'Sora, sans-serif',
+              fontFamily: '"IBM Plex Mono", monospace',
               fontSize: 10,
               fill: color,
               fontWeight: '700',

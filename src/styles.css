@@ -1,15 +1,45 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-void: #060607;
+  --color-void-raised: #0c0c0e;
+  --color-marble: #e8e3d8;
+  --color-marble-dim: rgb(232 227 216 / 0.66);
+  --color-marble-faint: rgb(232 227 216 / 0.5);
+  --color-line: rgb(232 227 216 / 0.12);
+  --color-line-strong: rgb(232 227 216 / 0.28);
+  --color-phosphor: #86d3a4;
+  --color-ember: #cfa46c;
+
+  --font-display: 'Cormorant Garamond', 'Iowan Old Style', 'Palatino Linotype', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+/*
+ * Marble & phosphor: near-black void, bone-white type, one muted phosphor accent.
+ * Legacy names stay as aliases for component CSS and the simulator.
+ */
 :root {
-  --ink: #071018;
-  --ink-soft: #0f1c2a;
-  --fog: rgba(236, 244, 255, 0.78);
-  --paper: #eef4f8;
-  --accent: #3ecfbf;
-  --accent-deep: #149e90;
-  --warn: #e8a23a;
-  --line: rgba(238, 244, 248, 0.14);
+  --void: var(--color-void);
+  --void-raised: var(--color-void-raised);
+  --marble: var(--color-marble);
+  --marble-dim: var(--color-marble-dim);
+  --marble-faint: var(--color-marble-faint);
+  --line: var(--color-line);
+  --line-strong: var(--color-line-strong);
+  --phosphor: var(--color-phosphor);
+  --ember: var(--color-ember);
+
+  --ink: var(--void);
+  --ink-soft: var(--void-raised);
+  --paper: var(--marble);
+  --fog: var(--marble-dim);
+  --accent: var(--phosphor);
+  --accent-deep: #7fae8f;
+  --warn: var(--ember);
+
   --header-height: 3.5rem;
+  --gutter: clamp(1rem, 4vw, 3rem);
 }
 
 html {
@@ -22,19 +52,96 @@ body {
 }
 
 body {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--void);
+  color: var(--marble);
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
-@keyframes fade-rise {
+::selection {
+  background: var(--marble);
+  color: var(--void);
+}
+
+:focus-visible {
+  outline: 1px solid var(--marble);
+  outline-offset: 3px;
+}
+
+/* ---- Type primitives ---- */
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+
+/* Small mono label: "I — Lab". Used instead of icon eyebrows. */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.prose-mono {
+  color: var(--marble-dim);
+  max-width: 62ch;
+}
+
+.prose-mono strong,
+.prose-mono code {
+  color: var(--marble);
+  font-weight: 400;
+}
+
+/* Inline text link: hairline underline that firms up on hover. */
+@utility link {
+  color: var(--marble);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color 160ms ease, color 160ms ease;
+
+  &:hover {
+    text-decoration-color: var(--marble);
+  }
+}
+
+/* Static pixel field: placeholder texture until the particle art lands. */
+@utility pixel-field {
+  background-image: radial-gradient(rgb(232 227 216 / 0.07) 1px, transparent 1.2px);
+  background-size: 6px 6px;
+}
+
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
+}
+
+/*
+ * Change highlight: re-render an element when its value changes
+ * (e.g. `@for (v of [value]; track v)`) and it flashes from --flash back to its own color.
+ */
+@keyframes value-flash {
+  0%,
+  30% {
+    color: var(--flash, var(--phosphor));
+    text-shadow: 0 0 14px color-mix(in srgb, var(--flash, var(--phosphor)) 55%, transparent);
+  }
+}
+
+@utility flash {
+  animation: value-flash 1.6s ease-in;
 }
 
 @keyframes spin-soft {
@@ -43,38 +150,24 @@ body {
   }
 }
 
-.animate-fade-rise {
-  animation: fade-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.animate-fade-rise-delay {
-  animation: fade-rise 800ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+.animate-fade-in {
+  animation: fade-in 900ms ease-out both;
 }
 
 .spin-soft {
   animation: spin-soft 0.8s linear infinite;
 }
-.pt-serif-regular {
-  font-family: "PT Serif", serif;
-  font-weight: 400;
-  font-style: normal;
-}
 
-.pt-serif-bold {
-  font-family: "PT Serif", serif;
-  font-weight: 700;
-  font-style: normal;
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-.pt-serif-regular-italic {
-  font-family: "PT Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.pt-serif-bold-italic,
-.pt-serif-italic-bold {
-  font-family: "PT Serif", serif;
-  font-weight: 700;
-  font-style: italic;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
